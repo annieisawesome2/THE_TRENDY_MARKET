@@ -1,0 +1,150 @@
+1,Meat,Ground Beef,12.52,The finest ground beef you will meet.
+2,Meat,Roast Beef,12.52,The finest roast bee you will meet.
+3,Meat,Beef Tenderloin Steak,19.53,Amazing quality of beef.
+4,Meat,Striploin Grilling Steak,26.39,Best steak in the world for grilling. 
+5,Meat,Steak Shoulder Blade,19.53,price per kg
+6,Meat,Striploin Steak,26.39,price per kg
+7,Meat,Sirloin Steak,26.39,price per kg
+8,Meat,Pork Tenderloin Whole,16.12,price per kg
+9,Meat,Pork Side Ribs,18.49,price per kg
+10,Meat,Ground Pork Lean,15.98,price per kg
+11,Meat,Pork Sausage,11.95,price per kg
+12,Meat,Ground Beef & Pork Blend,12.1,price per kg
+13,Meat,Pork Chops Loin,12.52,price per kg
+14,Meat,Pork Bellies Sliced Side,12.99,price per kg
+15,Meat,Turkey Hind Quarter,9.2,price per kg
+16,Meat,Turkey Pepperoni,44.78,price per kg
+17,Meat,Turkey Ground Thigh,19.81,price per kg
+18,Meat,Turkey Breast,32.99,price per kg
+19,Meat,Hot Italian Sausage Meat,19.95,price per kg
+20,Meat,Italian Sausage Meat,19.95,price per kg
+21,Meat,Chicken Breast Boneless,14.31,price per kg
+22,Meat,Chicken Thighs,8.8,price per kg
+23,Meat,Chicken Drumsticks,7.87,price per kg
+24,Meat,Chicken Whole,7.87,price per kg
+25,Dairy,Skim Milk,3.58,price per litre
+26,Dairy,1% Milk,3.33,price per litre
+27,Dairy,2% Milk,3.29,price per litre
+28,Dairy,3% Milk,3.29,price per litre
+29,Dairy,Heavy Cream,6.87,price per litre
+30,Dairy,Chocolate Milk,3.99,price per litre
+31,Dairy,Parmesan Cheese,26.5,price per kg
+32,Dairy,Cheddar Cheese,16.7,price per kg
+33,Dairy,Swiss Cheese,27.99,price per kg
+34,Dairy,Strawberry Yogurt,7.5,price per kg
+35,Dairy,Blueberry Yogurt,7.5,price per kg
+36,Dairy,Vanilla Yogurt,7.5,price per kg
+37,Dairy,Greek Yogurt,8.41,price per kg
+38,Dairy,White Eggs,3.27,price per 12
+39,Dairy,Brown Eggs,5.59,price per 12
+40,Dairy,Sour Cream,5.62,price per litre
+41,Dairy,Butter,13.22,price per kg
+42,Dairy,Feta Cheese,27.45,price per kg
+43,Dairy,Almond Milk,2.36,price per litre
+44,Dairy,Butter Milk,6.97,price per litre
+45,Frozen,Vanilla Icecream,2.2,price per kg
+46,Frozen,Chocolate Icecream,2.2,price per kg
+47,Frozen,Strawberry Icecream,2.2,price per kg
+48,Frozen,Orange Popsicles,2.44,price per kg
+49,Frozen,Frozen Blueberries,2.58,price per kg
+50,Frozen,Frozen Strawberries,8.24,price per kg
+51,Frozen,Frozen Rasberries,12.99,price per kg
+52,Frozen,Frozen Mangoes,7.49,price per kg
+53,Frozen,Frozen Pinapples,9.28,price per kg
+54,Frozen,Frozen Blackberries,8.62,price per kg
+55,Frozen,Frozen Scallops,58.86,price per kg
+56,Frozen,Frozen Peas,4.98,price per kg
+57,Frozen,Frozen Fillets,29.42,price per kg
+58,Frozen,Frozen Prawns,35.32,price per kg
+59,Frozen,Frozen Salmon,37.92,price per kg
+60,Fruits,Blueberries,6.99,per 1 pint
+61,Fruits,Pinapple ,5.99,price per each
+62,Fruits,Strawberries,4.99,price per pound
+63,Fruits,Bananas,1.72,price per kg
+64,Fruits,Apples,4.4,price per kg
+65,Fruits,Oranges,5.56,price per kg
+66,Fruits,Mandarins,5.95,price per kg
+67,Fruits,Peaches,9.94,price per kg
+68,Fruits,Green Grapes,12.15,price per kg
+69,Fruits,Red Grapes,9.9,price per kg
+70,Fruits,Mangoes,1.49,price per each
+71,Fruits,Dragon Fruit,5.12,price per each
+72,Fruits,Passion Fruit,1.98,price per each
+73,Fruits,Watermelon ,4.99,price per each
+74,Fruits,Pears,1.04,price per each
+75,Fruits,Cherries,7.33,price per kg
+76,Vegetables,Mushrooms,4.99,price per pound
+77,Vegetables,Red Onions,2.21,price per each
+78,Vegetables,Garlic,0.75,price per each
+79,Vegetables,Avacados,2.99,price per each
+80,Vegetables,Green Peppers,2.11,price per each
+81,Vegetables,Celery,2.66,price per bunch
+82,Vegetables,Carrot,0,stuff
+83,Vegetables,Potatoes,0,stuff
+84,Vegetables,Tomatoes,0,stuff
+85,Vegetables,Cucumbers,0,stuff
+86,Vegetables,Lettuce,0,stuff
+87,Vegetables,Cabbage,0,stuff
+88,Vegetables,Green Onions,0,stuff
+89,Vegetables,Romaine Hearts,0,stuff
+90,Vegetables,Peas,0,stuff
+91,Vegetables,Red peppers,0,stuff
+92,Vegetables,Yellow Peppers,0,stuff
+93,Vegetables,Orange Peppers,0,stuff
+94,Vegetables,Zucchini,0,stuff
+95,Vegetables,Kale,0,stuff
+96,Vegetables,Winter Melon,0,stuff
+97,Vegetables,Beets,0,stuff
+98,Vegetables,Corn,0,stuff
+99,Vegetables,Yam,0,stuff
+100,Vegetables,Spinach,0,stuff
+101,Vegetables,Baby Spinach,0,stuff
+102,Vegetables,Broccoli,0,stuff
+103,Vegetables,Squash,0,stuff
+104,Vegetables,Green Bean,0,stuff
+105,Vegetables,Cilantro,0,stuff
+106,Vegetables,Ginger,0,stuff
+107,Vegetables,Turnip,0,stuff
+108,Vegetables,Pumpkin,0,stuff
+109,Condiments,Mustard,0,stuff
+110,Condiments,Ketchup,0,stuff
+111,Condiments,Relish,0,stuff
+112,Condiments,Mayo,0,stuff
+113,Condiments,Ranch,0,stuff
+114,Condiments,Honey,0,stuff
+115,Condiments,Sriracha,0,stuff
+116,Condiments,Soy Sauce,0,stuff
+117,Condiments,Olive Oil,0,stuff
+118,Condiments,Canola Oil,0,stuff
+119,Condiments,Mayonnaise,0,stuff
+120,Condiments,Maple Syrup,0,stuff
+121,Condiments,Hot Sauce,0,stuff
+122,Condiments,Vinager,0,stuff
+123,Baking,Sugar,0,stuff
+124,Baking,Salt,0,stuff
+125,Baking,Flour,0,stuff
+126,Baking,Coca Powder,0,stuff
+127,Baking,Baking Powder,0,stuff
+128,Baking,Baking Soda,0,stuff
+129,Baking,Vanilla Cake Mix,0,stuff
+130,Baking,Chocolate Cake Mix,0,stuff
+131,Baking,Icing,0,stuff
+132,Baking,Butter Cream,0,stuff
+133,Baking,Classic Sprinkles,0,stuff
+134,Baking,Vanilla Extract,0,stuff
+135,Baking,Blue Food Coloring ,0,stuff
+136,Baking,Yellow Food Coloring ,0,stuff
+137,Baking,Red Food Coloring,0,stuff
+138,Baking,Pink Food Coloring,0,stuff
+139,Baking,Green Food Coloring,0,stuff
+140,Baking,Icing Sugar,0,stuff
+141,Baking,Baking Soda,0,stuff
+142,Baking,Chocolate Chips,0,stuff
+143,Baking,Almond Extract,0,stuff
+144,Baking,Cinnamon,0,stuff
+145,Baking,Brown Sugar,0,stuff
+146,Baking,Yeast,0,stuff
+147,Baking,Red Velvet Cake Mix,0,stuff
+148,Baking,Whole Wheat Flour,0,stuff
+149,Baking,Cornmeal,0,stuff
+150,Baking,Cornstarch,0,stuff
