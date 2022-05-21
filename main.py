@@ -70,7 +70,7 @@ def getInput(QUESTION, ANSWER):
    if INPUT.title() in ANSWER:
        return INPUT.title()## capitalizes user's input
    else:
-       print("Sorry, the item you are looking for is not available.")
+       print("Sorry, the item you are looking for is not available in this category of trendy foods.")
        return getInput(QUESTION, ANSWER)
 
 
@@ -105,33 +105,51 @@ def sortCategory(CATEGORY):
 
 
 def selectMeat():
-    ITEM = getInput("Please type in the item you would like to view from the meat products listed: ", ["Ground Beef", "Roast Beef", "Beef Tenderloin Steak", "Striploin Grilling Steak", "Steak Shoulder Blade", "Striploin Steak", "Sirloin Steak", "Pork Tenderloin Whole", "Pork Side Ribs", "Ground Pork Lean", "Pork Sausage", "Ground Beef & Pork Blend", "Pork Chops Loin", "Pork Bellies Sliced Side", "Turkey Hind Quarter", "Turkey Pepperoni", "Turkey Ground Thigh", "Turkey Breast", "Hot Italian Sausage Meat", "Italian Sausage Meat", "Chicken Breast Boneless", "Chicken Thighs", "Chicken Drumsticks", "Chicken Whole"])                                                                 
+    ITEM = getInput("Please type in the item you would like to view from the meat products listed", ["Ground Beef", "Maple Roast Beef", "Beef Tenderloin Steak", "Striploin Grilling Steak", "Steak Shoulder Blade", "Ham", "Sirloin Steak", "Pork Tenderloin Whole", "Pork Side Ribs", "Ground Pork Lean", "Pork Sausage", "Bacon", "Pork Chops Loin", "Pork Bellies", "Turkey Hind Quarter", "Turkey Pepperoni", "Turkey Ground Thigh", "Turkey Breast", "Hot Italian Sausage", "Pork Sausages", "Chicken Breast Boneless", "Chicken Thighs", "Chicken Drumsticks", "Chicken Whole"])                                                                 
     return ITEM
 
 def selectDairy():
-    ITEM = getInput("Please type in the item you would like to view from the dairy products listed: ", ["Skim Milk", "1% Milk", "2% Milk", "3% Milk", "Heavy Cream", "Chocolate Milk", "Parmesan Cheese", "Cheddar Cheese", "Swiss Cheese", "Strawberry Yogurt", "Blueberry Yogurt", "Vanilla Yogurt", "Greek Yogurt", "White Eggs", "Brown Eggs", "Sour Cream", "Butter", "Feta Cheese", "Almond Milk", "Butter Milk"])
+    ITEM = getInput("Please type in the item you would like to view from the dairy products listed", ["Skim Milk", "1% Milk", "2% Milk", "3% Milk", "Whipping Cream", "Chocolate Milk", "Parmesan Cheese", "Cheddar Cheese", "Swiss Cheese", "Strawberry Yogurt", "Blueberry Yogurt", "Vanilla Yogurt", "Greek Yogurt", "White Eggs", "Brown Eggs", "Sour Cream", "Butter", "Feta Cheese", "Almond Milk", "Cashew Milk"])
     return ITEM
 
 def selectFrozen():
-    ITEM = getInput("Please type in the item you would like to view from the dairy products listed: ", ["Vanilla Icecream", "Chocolate Icecream", "Strawberry Icecream", "Orange Popsicles", "Frozen Blueberries", "Frozen Strawberries", "Frozen Rasberries", "Frozen Mangoes", "Frozen Pinapples", "Frozen Blackberries", "Frozen Scallops", "Frozen Peas", "Frozen Fillets", "Frozen Prawns", "Frozen Salmon"])
+    ITEM = getInput("Please type in the item you would like to view from the dairy products listed", ["Vanilla Ice Cream", "Chocolate Ice Cream", "Strawberry Ice Cream", "Orange Popsicles", "Frozen Blueberries", "Frozen Strawberries", "Frozen Rasberries", "Frozen Mangoes", "Frozen Pinapples", "Frozen Blackberries", "Frozen Scallops", "Frozen Peas", "Frozen Fillets", "Frozen Prawns", "Frozen Salmon"])
     return ITEM
 
 def selectFruits():
-    ITEM = getInput("Please type in the item you would like to view from the dairy products listed: ", ["Blueberries", "Pinapple","Strawberries","Bananas","Apples","Oranges","Mandarins","Peaches","Green Grapes","Red Grapes","Mangoes","Dragon Fruit","Passion Fruit","Watermelon","Pears","Cherries"])
+    ITEM = getInput("Please type in the item you would like to view from the dairy products listed", ["Blueberries", "Pinapple","Strawberries","Bananas","Apples","Oranges","Mandarins","Peaches","Green Grapes","Red Grapes","Mangoes","Dragon Fruit","Passion Fruit","Watermelon","Pears","Cherries"])
     return ITEM
 
 def selectVegetables():
-    ITEM = getInput("Please type in the item you would like to view from the dairy products listed: ", ["Mushrooms","Red Onions","Garlic","Avacados","Green Peppers","Celery","Carrot","Potatoes","Tomatoes","Cucumbers","Lettuce","Cabbage","Green Onions","Romaine Hearts","Peas","Red peppers","Yellow Peppers","Orange Peppers","Zucchini","Kale","Winter Melon","Beets","Corn","Yam","Spinach","Baby Spinach","Broccoli","Squash","Green Bean","Cilantro","Ginger","Turnip","Pumpkin"])
+    ITEM = getInput("Please type in the item you would like to view from the dairy products listed", ["Mushrooms","Red Onions","Garlic","Avacados","Green Peppers","Celery","Carrot","Potatoes","Tomatoes","Cucumbers","Lettuce","Cabbage","Green Onions","Romaine Hearts","Peas","Red peppers","Yellow Peppers","Orange Peppers","Zucchini","Kale","Winter Melon","Beets","Corn","Yam","Spinach","Baby Spinach","Broccoli","Squash","Green Bean","Cilantro","Ginger","Turnip","Pumpkin"])
     return ITEM
 
 def selectCondiments():
-    ITEM = getInput("Please type in the item you would like to view from the dairy products listed: ", ["Mustard","Ketchup","Relish","Mayo","Ranch","Honey","Sriracha","Soy Sauce","Olive Oil","Canola Oil","Mayonnaise","Maple Syrup","Hot Sauce","Vinager"])
+    ITEM = getInput("Please type in the item you would like to view from the dairy products listed", ["Mustard","Ketchup","Relish","Mayo","Ranch","Honey","Sriracha","Soy Sauce","Olive Oil","Canola Oil","Mayonnaise","Maple Syrup","Hot Sauce","Vinager"])
     return ITEM
 
 def selectBaking():
-    ITEM = getInput("Please type in the item you would like to view from the dairy products listed: ", ["Sugar","Salt","Flour","Coca Powder","Baking Powder","Baking Soda","Vanilla Cake Mix","Chocolate Cake Mix","Icing","Butter Cream","Classic Sprinkles","Vanilla Extract","Blue Food Coloring","Yellow Food Coloring","Red Food Coloring","Pink Food Coloring","Green Food Coloring","Icing Sugar","Baking Soda","Chocolate Chips","Almond Extract","Cinnamon","Brown Sugar","Yeast","Red Velvet Cake Mix","Whole Wheat Flour","Cornmeal","Cornstarch"])
+    ITEM = getInput("Please type in the item you would like to view from the dairy products listed", ["Sugar","Salt","Flour","Coca Powder","Baking Powder","Baking Soda","Vanilla Cake Mix","Chocolate Cake Mix","Icing","Butter Cream","Classic Sprinkles","Vanilla Extract","Blue Food Coloring","Yellow Food Coloring","Red Food Coloring","Pink Food Coloring","Green Food Coloring","Icing Sugar","Baking Soda","Chocolate Chips","Almond Extract","Cinnamon","Brown Sugar","Yeast","Red Velvet Cake Mix","Whole Wheat Flour","Cornmeal","Cornstarch"])
     return ITEM
 
+def directionChoice():
+    print('''
+    1. Add item to Cart
+    2. Continue Shopping
+    3. Checkout
+
+    ''')
+    CHOICE = input("> ")
+    CHOICE = checkInt(CHOICE) ##checking if inputted answer is an integer
+    if CHOICE > 0 and CHOICE < 4:
+       return CHOICE
+    else:
+       print("Please choose a valid number from the menu selection!")
+       return menu()
+
+def askQuantity():
+    ##must check if quantity is less than what is available
+    pass
 
 ##--PROCESSING--##
 def getRawData(MARKET):
@@ -201,7 +219,8 @@ def setup():
                category TEXT,
                item,
                price,
-               description
+               description,
+               quantity
                    )
    ;''')
    CONNECTION.commit()   
@@ -220,19 +239,17 @@ def importData(RAW_DATA):
    ## making sure data is null in database if array value is empty or NA. 
    ## turning numeric values in data to become integers
    for i in range(len(RAW_DATA)):
-       for j in range(len(RAW_DATA[i])):
-           if RAW_DATA[i][j] == ("" or "NA"):
-               RAW_DATA[i][j] = None
-           elif RAW_DATA[i][j].isnumeric():
-               RAW_DATA[i][j] = int(RAW_DATA[i][j])
+       RAW_DATA[i][0] = int(RAW_DATA[i][0])
+       RAW_DATA[i][3] = float(RAW_DATA[i][3])
+       RAW_DATA[i][5] = int(RAW_DATA[i][5])
+        
+        
            
-
- 
        CURSOR.execute('''
            INSERT INTO
                market
            VALUES(
-               ?, ?, ?, ?, ?
+               ?, ?, ?, ?, ?, ?
            )  
        ;''', RAW_DATA[i])
 
@@ -345,7 +362,10 @@ def getProduct(ITEM):
         WHERE
             item = ?
     ;''', [ITEM]).fetchone()
+
     print(PRODUCT)
+
+    return PRODUCT
 
 ##--OUTPUTS--##
 def intro():
@@ -353,8 +373,19 @@ def intro():
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Welcome to the Trendy Market!! We source the best quality foods from this planet!
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    
     ''')
+
+def displayProducts(PRODUCT):
+        print(f'''
+{PRODUCT[2]}
+----------------------
+{PRODUCT[4]}
+
+Price: ${PRODUCT[3]}
+Quantity Available: {PRODUCT[5]}
+
+        ''')
+
 if __name__ == "__main__":
     if FIRST_RUN:
         setup()
@@ -372,43 +403,103 @@ if __name__ == "__main__":
                 MEATS = shopMeats()
                 sortCategory(MEATS)
                 MEAT_ITEM = selectMeat()
-                getProduct(MEAT_ITEM)
+                PRODUCT = getProduct(MEAT_ITEM) #array with product details
                 
-            if CATEGORY == 2:
+                displayProducts(PRODUCT)
+
+                DIRECTION = directionChoice()
+
+
+                if DIRECTION == 1:
+                        pass
+                if DIRECTION == 2:
+                        pass
+                if DIRECTION == 3:
+                        pass
+                
+            elif CATEGORY == 2:
                 DAIRY = shopDairy()
                 sortCategory(DAIRY)
                 DAIRY_ITEM = selectDairy()
-                getProduct(DAIRY_ITEM)
+                PRODUCT = getProduct(DAIRY_ITEM)
+                DIRECTION = directionChoice()
 
-            if CATEGORY == 3:
+                if DIRECTION == 1:
+                        pass
+                if DIRECTION == 2:
+                        pass
+                if DIRECTION == 3:
+                        pass
+
+            elif CATEGORY == 3:
                 FROZEN = shopFrozen()
                 sortCategory(FROZEN)
                 FROZEN_ITEM= selectFrozen()
-                getProduct(FROZEN_ITEM)
+                PRODUCT = getProduct(FROZEN_ITEM)
+                DIRECTION = directionChoice()
 
-            if CATEGORY == 4:
+                if DIRECTION == 1:
+                        pass
+                if DIRECTION == 2:
+                        pass
+                if DIRECTION == 3:
+                        pass
+
+            elif CATEGORY == 4:
                 FRUITS = shopFruits()
                 sortCategory(FRUITS)
                 FRUIT_ITEM = selectFruits()
-                getProduct(FRUIT_ITEM)
+                PRODUCT = getProduct(FRUIT_ITEM)
+                DIRECTION = directionChoice()
 
-            if CATEGORY == 5:
+                if DIRECTION == 1:
+                        pass
+                if DIRECTION == 2:
+                        pass
+                if DIRECTION == 3:
+                        pass
+
+            elif CATEGORY == 5:
                 VEGETABLES = shopVegetables()
                 sortCategory(VEGETABLES)
                 VEG_ITEM = selectVegetables()
-                getProduct(VEG_ITEM)
+                PRODUCT = getProduct(VEG_ITEM)
+                DIRECTION = directionChoice()
+
+                if DIRECTION == 1:
+                        pass
+                if DIRECTION == 2:
+                        pass
+                if DIRECTION == 3:
+                        pass
                 
-            if CATEGORY == 6:
+            elif CATEGORY == 6:
                 CONDIMENTS = shopCondiments()
                 sortCategory(CONDIMENTS)
                 CONDIMENT_ITEM = selectCondiments()
-                getProduct(CONDIMENT_ITEM)
+                PRODUCT = getProduct(CONDIMENT_ITEM)
+                DIRECTION = directionChoice()
+
+                if DIRECTION == 1:
+                        pass
+                if DIRECTION == 2:
+                        pass
+                if DIRECTION == 3:
+                        pass
                  
-            if CATEGORY == 7:
+            elif CATEGORY == 7:
                 BAKING =shopBaking()
                 sortCategory(BAKING)
                 BAKING_ITEM = selectBaking()
-                getProduct(BAKING_ITEM)
+                PRODUCT = getProduct(BAKING_ITEM)
+                DIRECTION = directionChoice()
+
+                if DIRECTION == 1:
+                        pass
+                if DIRECTION == 2:
+                        pass
+                if DIRECTION == 3:
+                        pass
 
         if OPERATION == 2:
             pass
