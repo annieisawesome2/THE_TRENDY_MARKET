@@ -20,7 +20,7 @@
 20,Meat,Pork Sausages,7.29,Price per 1 pack. Fresh. A mild sausage with great flavour. A great addition to any family breakfast.12 sausages packaged in tray.,15
 21,Meat,Chicken Breast Boneless,13.66,"850 grams. This chicken breast is boneless, skinless, and fresh. Family Pack size. Raised on Family Farms. Average Weight of Each Package May Vary.",15
 22,Meat,Chicken Thighs,16.73,950 grams. Raised on family farms without antibiotics. Humanely raised. Average weight of each package may vary.,15
-23,Meat,Chicken Drumsticks,8.19,600 grams. Skin on. Raised on family farms without antibiotics. Western Canadian. Humanely raised. Average weight of each package may vary,15
+23,Meat,Chicken Drumsticks,8.19,600 grams. Skin on. Raised on family farms without antibiotics. Western Canadian. Humanely raised. Average weight of each package may vary.,15
 24,Meat,Chicken Whole,10.81,1.49 kilograms. Raised on Family Farms. Chicken whole. ,15
 25,Dairy,Skim Milk,5.39,4 Litre Jug. Fat free. An Excellent Source of Calcium.,15
 26,Dairy,1% Milk,2.69,1 litre. 1% Milk Partly Skimmed An Excellent Source of Calcium.,15
@@ -45,35 +45,35 @@
 45,Frozen,Vanilla Ice Cream,3.79,"1.65 Litre. Signature french vanilla icecream. Creamy, old-fashioned ice cream made with real vanilla beans. Not enough O's in smooth to describe this tasty experience!",15
 46,Frozen,Chocolate Ice Cream,3.79,"1.65 Litre. Made with real cream. Smooth chocolate ice cream with chocolate truffle pieces, chocolate covered almonds & chocolate chunks.",15
 47,Frozen,Strawberry Ice Cream,3.79,"1.65 Litre. Made with real cream. A rich & creamy old fashioned ice cream packed with real strawberry pieces. Berry, berry delicious. Produced in Victoria, BC.",15
-48,Frozen,Orange Popsicles,2.44,price per kg,15
-49,Frozen,Frozen Blueberries,2.58,price per kg,15
-50,Frozen,Frozen Strawberries,8.24,price per kg,15
-51,Frozen,Frozen Rasberries,12.99,price per kg,15
-52,Frozen,Frozen Mangoes,7.49,price per kg,15
-53,Frozen,Frozen Pinapples,9.28,price per kg,15
-54,Frozen,Frozen Blackberries,8.62,price per kg,15
-55,Frozen,Frozen Scallops,58.86,price per kg,15
-56,Frozen,Frozen Peas,4.98,price per kg,15
-57,Frozen,Frozen Fillets,29.42,price per kg,15
-58,Frozen,Frozen Prawns,35.32,price per kg,15
-59,Frozen,Frozen Salmon,37.92,price per kg,15
-60,Fruits,Blueberries,6.99,per 1 pint,15
-61,Fruits,Pinapple ,5.99,price per each,15
-62,Fruits,Strawberries,4.99,price per pound,15
-63,Fruits,Bananas,1.72,price per kg,15
-64,Fruits,Apples,4.4,price per kg,15
-65,Fruits,Oranges,5.56,price per kg,15
-66,Fruits,Mandarins,5.95,price per kg,15
-67,Fruits,Peaches,9.94,price per kg,15
-68,Fruits,Green Grapes,12.15,price per kg,15
-69,Fruits,Red Grapes,9.9,price per kg,15
-70,Fruits,Mangoes,1.49,price per each,15
-71,Fruits,Dragon Fruit,5.12,price per each,15
-72,Fruits,Passion Fruit,1.98,price per each,15
-73,Fruits,Watermelon ,4.99,price per each,15
-74,Fruits,Pears,1.04,price per each,15
-75,Fruits,Cherries,7.33,price per kg,15
-76,Vegetables,Mushrooms,4.99,price per pound,15
+48,Frozen,Popsicles,7.29,"Pack of 28. 28x50ml Water Ice Flavoured Pops: Blue Raspberry, Strawberry, Peach and Lemon Lime. Gluten Free. Peanut Free. Natural Flavour and Colour.",15
+49,Frozen,Frozen Blueberries,5.99,600 grams. Unsweetened Frozen Cultivated Blueberries. ,15
+50,Frozen,Frozen Strawberries,5.99,600 grams. Unsweetened Strawberries Sliced for your Convenience.,15
+51,Frozen,Frozen Rasberries,5.99,600 grams. Unsweetened Frozen Cultivated Rasberries. ,15
+52,Frozen,Frozen Mangoes,5.99,"600 grams. Unsweetened frozen mango pieces. Great in smoothies, fruit salad & more. Very high in Vitamin C.",15
+53,Frozen,Frozen Pinapples,5.99,600 grams. Grade A. Source of vitamin A & Iron. Unsweetened.,15
+54,Frozen,Frozen Blackberries,5.99,600 grams. Very high in vitamin C & unsweetened.,15
+55,Frozen,Frozen Scallops,19.99,"340 grams. Large scallops. Ocean Wise. Frozen 20-30 Scallops per Pound. These scallops are briny, slightly sweet and buttery with a tender texture when cooked properly.",15
+56,Frozen,Frozen Peas,2.79,"750 grams. Green fancy peas. Source of vitamin C, protein & iron. Frozen.",15
+57,Frozen,Frozen Fillets,9.45,500 grams. Frozen blue cod fillits. Frozen Fillets Packaged and Sealed. Average Weight of Each Pack May Vary. Approx 2-3 Portions per Pack.,15
+58,Frozen,Frozen Prawns,8.55,"340 grams. Frozen. Medium Prawns. Peeled, Deveined, Tail on. Cooked. 41-50 prawns per pound. Ocean Wise.",15
+59,Frozen,Frozen Salmon,33.92,850 grams. Frozen fillets packaged & vacuum sealed. Salmon portion weight may vary from 700g to 1Kg.,15
+60,Fruits,Blueberries,6.99,1 pint. These are just some of the trendy blueberries that taste fresh and delicious.,15
+61,Fruits,Pinapple ,4.29,"1 pinapple. Pineapples have yellow or white pulp, fleshy, aromatic, juicy and sweet.",15
+62,Fruits,Strawberries,4.99,price per pound. 16 oz of fresh delicious strawberries. These are the trendiest strawberries you will meet. ,15
+63,Fruits,Bananas,0.44,"118 grams/ 1 banana. Bananas are a good source of several vitamins and minerals, especially potassium, vitamin B6, and vitamin C. Bananas are a good source of potassium. ",15
+64,Fruits,Apples,5.99,3 pounds. Canada Extra Fancy 3lb Bag of Gala Apples.,15
+65,Fruits,Oranges,2.11,"385 grams. Extra large. Low in calories and packed with vitamin C, flavonoids, fiber and potassium. These oranges really are one of the healthiest fruits you can eat. ",15
+66,Fruits,Mandarins,7.99,"3 pounds. Juicy, sweet and seedless. A perfect snack.",15
+67,Fruits,Peaches,1.83,"185 grams. Juicy, healthy, and tasty trendy peaches. Great for your health. ",15
+68,Fruits,Green Grapes,9.45,1000 grams. Grapes are sold by bag approx 1KG equal to 1000 grams. One cup of green grapes contains 104 calories and 1.4 grams of fiber. Green grapes contain vitamins C and K.,15
+69,Fruits,Red Grapes,9.45,1000 grams. Grapes are sold by bag approx 1 KG equal to 1000 grams. Each 1-cup serving contains only 62 calories and less than 1 gram of fat. Consuming red grapes provides your body with antioxidants.,15
+70,Fruits,Mangoes,1.49,"1 mango. Their Flesh is a Deep Yellow and High in Sugar (15 grams per 100-gram serving), with a Rich, Sweet Flavor.They are Rich in Vitamin C and Dietary Fiber.",15
+71,Fruits,Dragon Fruit,5.12,"280 grams. Sweet, tropical taste. Just another awesome trendy fruit. ",15
+72,Fruits,Passion Fruit,2.99,1 passionfruit. A nutritious tropical Fruit. it's a rich source of antioxidants and contains a range of vitamins and plant compounds that could benefit your health.,15
+73,Fruits,Watermelon ,5.99,1 watermelon. Average Weight of each Watermelon May Vary 5-7kg's. Watermelons are all sweet and juicy with a crisp flesh and watery texture.,15
+74,Fruits,Pears,1.04,"190 grams. Fancy Grade A. Bell-Shaped Pear with a Classic Sweet Pear Flavor and Smooth, Buttery Texture.",15
+75,Fruits,Cherries,6.99,price per pound. Delicious trendy red organic cherries. ,15
+76,Vegetables,Mushrooms,4.99,price per pound. Tasty large white mushrooms. ,15
 77,Vegetables,Red Onions,2.21,price per each,15
 78,Vegetables,Garlic,0.75,price per each,15
 79,Vegetables,Avacados,2.99,price per each,15
