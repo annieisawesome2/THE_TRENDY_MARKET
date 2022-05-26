@@ -15,7 +15,7 @@ DATABASE_FILE = "market.db"
  
 FIRST_RUN = True
 
-ITEM = [0, "", 0]
+ITEM = [0, "", 0, 0]
 CART = []
 # Test if FILENAME already exists
 if (pathlib.Path.cwd() / DATABASE_FILE).exists():
@@ -283,6 +283,7 @@ def importData(RAW_DATA):
        RAW_DATA[i][0] = int(RAW_DATA[i][0])
        RAW_DATA[i][3] = float(RAW_DATA[i][3])
        RAW_DATA[i][5] = int(RAW_DATA[i][5])
+       RAW_DATA[i][7] = int(RAW_DATA[i][7])
     
    for i in range(len(RAW_DATA)):
        for j in range(len(RAW_DATA[i])):
@@ -413,10 +414,11 @@ def itemTotal(PRODUCT, QUANTITY):
     TOTAL_FOR_ITEM = PRODUCT[3] * QUANTITY
     return TOTAL_FOR_ITEM
 
-def item(ITEM_TOTAL, MEAT_ITEM, QUANTITY):
+def item(ITEM_TOTAL, MEAT_ITEM, QUANTITY, POINTS):
     ITEM[0] = ITEM_TOTAL
     ITEM[1] = MEAT_ITEM
     ITEM[2] = QUANTITY
+    ITEM[3] = POINTS
     return ITEM
 
 def cart(ITEM, CART):
@@ -525,30 +527,25 @@ def getAccount(ACCOUNT_USERNAME):
 
     print(DATA)
 
-
-
-def makeAccount(POINTS, TRANSACTION):
+def makeAccount():
     global ACCOUNT_CUR, ACCOUNT_CON
-    ACCOUNT_USERNAME =  getAnyInput("username")
+    ACCOUNT_USERNAME =  getAnyInput("a username with no spaces or special characters")
  
 
     if  " " in ACCOUNT_USERNAME:
         print("Please enter a valid username with no spaces or special characters!")
-        return makeAccount(POINTS, TRANSACTION)
+        return makeAccount()
     
-    #why wont this work
     elif ACCOUNT_USERNAME.isalnum() == False:
         print("Please enter a valid username with no spaces or special characters!")
-        return makeAccount(POINTS, TRANSACTION)
+        return makeAccount()
 
     ##section where you choose to create an account  or to checkout with an already existing username
     #elif ACCOUNT_USERNAME == :
-        #print("Sorry, this username is taken. Please enter a new one. ")
+        #print("Sorry this username is taken, please enter a new one.")
         #return makeAccount(POINTS, TRANSACTION)
 
     else:
-
-        print(ACCOUNT_USERNAME, POINTS, TRANSACTION)
         ACCOUNT_CUR.execute(f'''
             CREATE TABLE 
                 {ACCOUNT_USERNAME} (
@@ -559,19 +556,37 @@ def makeAccount(POINTS, TRANSACTION):
             )
         ;''')
 
-        ACCOUNT_CUR.execute(f'''
-            INSERT INTO
-                {ACCOUNT_USERNAME}
-            VALUES (
-                ?, ?, ?
-            )
-        
-        ;''', [ACCOUNT_USERNAME, POINTS, TRANSACTION])
-
         ACCOUNT_CON.commit()
 
+def transactionAndPoints(ACCOUNT_USERNAME, POINTS, TRANSACTION):
+    global ACCOUNT_CUR, ACCOUNT_CON
+
+    ACCOUNT_CUR.execute(f'''
+        INSERT INTO
+            {ACCOUNT_USERNAME}
+        VALUES (
+            ?, ?, ?
+        )
+    
+    ;''', [ACCOUNT_USERNAME, POINTS, TRANSACTION])
+
+    ACCOUNT_CON.commit()
 
 
+def getPoints(PRODUCT):
+    global CURSOR
+    POINTS_ARRAY = CURSOR.execute('''
+        SELECT
+            *
+        FROM
+            market
+        WHERE 
+            item = ?
+    ;''', [PRODUCT]).fetchone()
+    
+    POINTS = POINTS_ARRAY[7]
+    
+    return POINTS
 
 ##--OUTPUTS--##
 def intro():
@@ -685,7 +700,8 @@ if __name__ == "__main__":
                 if DIRECTION == 1:
                     QUANTITY = askQuantity(PRODUCT)
                     ITEM_TOTAL = itemTotal(PRODUCT, QUANTITY)
-                    ITEM = item(ITEM_TOTAL, MEAT_ITEM, QUANTITY)
+                    POINTS = getPoints(MEAT_ITEM)
+                    ITEM = item(ITEM_TOTAL, MEAT_ITEM, QUANTITY, POINTS)
                     CART = cart(ITEM, CART)
                     addedToCart()
                     break
@@ -706,7 +722,8 @@ if __name__ == "__main__":
                 if DIRECTION == 1:
                     QUANTITY = askQuantity(PRODUCT)
                     ITEM_TOTAL = itemTotal(PRODUCT, QUANTITY)
-                    ITEM = item(ITEM_TOTAL, DAIRY_ITEM, QUANTITY)
+                    POINTS = getPoints(DAIRY_ITEM)
+                    ITEM = item(ITEM_TOTAL, DAIRY_ITEM, QUANTITY, POINTS)
                     CART = cart(ITEM, CART)
                     addedToCart()
                     break
@@ -716,7 +733,7 @@ if __name__ == "__main__":
             elif CATEGORY == 3:
                 FROZEN = shopFrozen()
                 sortCategory(FROZEN)
-                FROZEN_ITEM= selectFrozen()
+                FROZEN_ITEM = selectFrozen()
                 PRODUCT = getProduct(FROZEN_ITEM)
                 displayProducts(PRODUCT)
 
@@ -725,7 +742,8 @@ if __name__ == "__main__":
                 if DIRECTION == 1:
                     QUANTITY = askQuantity(PRODUCT)
                     ITEM_TOTAL = itemTotal(PRODUCT, QUANTITY)
-                    ITEM = item(ITEM_TOTAL, FROZEN_ITEM, QUANTITY)
+                    POINTS = getPoints(FROZEN_ITEM)
+                    ITEM = item(ITEM_TOTAL, FROZEN_ITEM, QUANTITY, POINTS)
                     CART = cart(ITEM, CART)
                     addedToCart()
                     break
@@ -744,7 +762,8 @@ if __name__ == "__main__":
                 if DIRECTION == 1:
                     QUANTITY = askQuantity(PRODUCT)
                     ITEM_TOTAL = itemTotal(PRODUCT, QUANTITY)
-                    ITEM = item(ITEM_TOTAL, FRUIT_ITEM, QUANTITY)
+                    POINTS = getPoints(FRUIT_ITEM)
+                    ITEM = item(ITEM_TOTAL, FRUIT_ITEM, QUANTITY, POINTS)
                     CART = cart(ITEM, CART)
                     addedToCart()
                     break
@@ -763,7 +782,8 @@ if __name__ == "__main__":
                 if DIRECTION == 1:
                     QUANTITY = askQuantity(PRODUCT)
                     ITEM_TOTAL = itemTotal(PRODUCT, QUANTITY)
-                    ITEM = item(ITEM_TOTAL, VEG_ITEM, QUANTITY)
+                    POINTS = getPoints(VEG_ITEM)
+                    ITEM = item(ITEM_TOTAL, VEG_ITEM, QUANTITY, POINTS)
                     CART = cart(ITEM, CART)
                     addedToCart()
                     break
@@ -782,7 +802,8 @@ if __name__ == "__main__":
                 if DIRECTION == 1:
                     QUANTITY = askQuantity(PRODUCT)
                     ITEM_TOTAL = itemTotal(PRODUCT, QUANTITY)
-                    ITEM = item(ITEM_TOTAL, CONDIMENT_ITEM, QUANTITY)
+                    POINTS = getPoints(CONDIMENT_ITEM)
+                    ITEM = item(ITEM_TOTAL, CONDIMENT_ITEM, QUANTITY, POINTS)
                     CART = cart(ITEM, CART)
                     addedToCart()
                     break
@@ -801,7 +822,8 @@ if __name__ == "__main__":
                 if DIRECTION == 1:
                     QUANTITY = askQuantity(PRODUCT)
                     ITEM_TOTAL = itemTotal(PRODUCT, QUANTITY)
-                    ITEM = item(ITEM_TOTAL, BAKING_ITEM, QUANTITY)
+                    POINTS = getPoints(BAKING_ITEM)
+                    ITEM = item(ITEM_TOTAL, BAKING_ITEM, QUANTITY, POINTS)
                     CART = cart(ITEM, CART)
                     addedToCart()
                     break
@@ -834,10 +856,10 @@ if __name__ == "__main__":
 
                     print("You have successfully purchased from The Trendy Market.")
                     purchased(CART)
-                    break
+                    continue
 
                 else:
-                    break
+                    continue
 
                 #[[31.98, 'Ham', 2], [41.97, 'Bacon', 3]]
                 #new quantities would be 13 and 12
