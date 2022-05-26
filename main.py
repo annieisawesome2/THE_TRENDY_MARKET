@@ -9,11 +9,13 @@ import sqlite3
  
 ## --- VARIABLES --- ##
 MARKET = "the_trendy_market.csv"
+
+ACCOUNTS = "accounts.db"
 DATABASE_FILE = "market.db"
  
 FIRST_RUN = True
 
-ITEM = [0, 0, 0]
+ITEM = [0, "", 0]
 CART = []
 # Test if FILENAME already exists
 if (pathlib.Path.cwd() / DATABASE_FILE).exists():
@@ -21,7 +23,10 @@ if (pathlib.Path.cwd() / DATABASE_FILE).exists():
  
 CONNECTION = sqlite3.connect(DATABASE_FILE)
 CURSOR = CONNECTION.cursor()
- 
+
+ACCOUNT_CON = sqlite3.connect(ACCOUNTS)
+ACCOUNT_CUR = ACCOUNT_CON.cursor()
+
 ##--INPUTS--##
 def menu():
    """User selects program actions
@@ -170,6 +175,20 @@ def askCheckOut(): ## sourced from Calc2.py
     AGAIN = input("Purchase items? (Y/n)")
     return AGAIN
 
+def review(ITEM):
+    REVIEW = input(f"Write your review for {ITEM}: ")
+    REVIEW = f'"{REVIEW}",'
+    return REVIEW
+
+def getAnyInput(QUESTION):
+    INPUT = input(f"Please enter {QUESTION}: ")
+    if INPUT == "":
+        print("Cannot be left blank")
+        return getAnyInput(QUESTION)
+    else:
+        return INPUT
+
+
 ##--PROCESSING--##
 def getRawData(MARKET):
    """Read CSV file and extract unprocessed data
@@ -239,7 +258,9 @@ def setup():
                item,
                price,
                description,
-               quantity
+               quantity, 
+               review, 
+               points
                    )
    ;''')
    CONNECTION.commit()   
@@ -254,20 +275,25 @@ def importData(RAW_DATA):
    """
    global CURSOR, CONNECTION
  
-    
+   RAW_DATA.pop(0)
+
    ## making sure data is null in database if array value is empty or NA. 
    ## turning numeric values in data to become integers
    for i in range(len(RAW_DATA)):
        RAW_DATA[i][0] = int(RAW_DATA[i][0])
        RAW_DATA[i][3] = float(RAW_DATA[i][3])
        RAW_DATA[i][5] = int(RAW_DATA[i][5])
-        
+    
+   for i in range(len(RAW_DATA)):
+       for j in range(len(RAW_DATA[i])):
+           if RAW_DATA[i][j] == ("" or "NA"):
+               RAW_DATA[i][j] = None
           
        CURSOR.execute('''
            INSERT INTO
                market
            VALUES(
-               ?, ?, ?, ?, ?, ?
+               ?, ?, ?, ?, ?, ?, ?, ?
            )  
        ;''', RAW_DATA[i])
 
@@ -424,6 +450,125 @@ def updateQuantity(CART):
         print(UPDATED_QUANTITY)
     
 
+def purchased(CART):
+    global CURSOR, CONNECTION
+
+    print(CART)
+    
+
+    ADD = input("Give a review? Y/n")
+
+    if ADD == "N" or ADD == "n":
+        CART = []
+        pass
+
+    else:
+        for i in range(len(CART)):
+            print(f"{i+1}. {CART[i][1]}")
+
+        while True:
+            CHOICE = int(input("Pleace input the corresponding number: "))
+            if CHOICE < 1 or CHOICE > len(CART):
+                print("Please enter a valid input")
+            else:
+                break
+        
+        ITEM_CHOICE = CART[CHOICE-1][1]
+        REVIEW = review(ITEM_CHOICE)
+
+        PAST_REVIEWS = CURSOR.execute('''
+            SELECT 
+                *
+            FROM
+                market
+            WHERE
+                item = ?
+        ;''', [ITEM_CHOICE]).fetchone()
+
+        PAST_REVIEWS = PAST_REVIEWS[-2]
+
+        if PAST_REVIEWS == None:
+            PAST_REVIEWS = ""
+
+        NEW_REVIEWS = PAST_REVIEWS + REVIEW
+
+        CURSOR.execute('''
+            UPDATE
+                market
+            SET
+                review = ?
+            WHERE
+                item = ?
+        ;''', [NEW_REVIEWS, ITEM_CHOICE])
+
+        CONNECTION.commit()
+
+        CART.pop(CHOICE-1)
+
+        if len(CART) == 0:
+            return
+
+        return purchased(CART)
+
+def getAccount(ACCOUNT_USERNAME):
+    global ACCOUNT_CUR, ACCOUNT_CON
+    
+    DATA = ACCOUNT_CUR.execute(f'''
+        SELECT
+            *
+        FROM
+            {ACCOUNT_USERNAME}
+        WHERE
+            account = ?
+        
+    ;''')
+
+    print(DATA)
+
+
+
+def makeAccount(POINTS, TRANSACTION):
+    global ACCOUNT_CUR, ACCOUNT_CON
+    ACCOUNT_USERNAME =  getAnyInput("username")
+ 
+
+    if  " " in ACCOUNT_USERNAME:
+        print("Please enter a valid username with no spaces or special characters!")
+        return makeAccount(POINTS, TRANSACTION)
+    
+    #why wont this work
+    elif ACCOUNT_USERNAME.isalnum() == False:
+        print("Please enter a valid username with no spaces or special characters!")
+        return makeAccount(POINTS, TRANSACTION)
+
+    ##section where you choose to create an account  or to checkout with an already existing username
+    #elif ACCOUNT_USERNAME == :
+        #print("Sorry, this username is taken. Please enter a new one. ")
+        #return makeAccount(POINTS, TRANSACTION)
+
+    else:
+
+        print(ACCOUNT_USERNAME, POINTS, TRANSACTION)
+        ACCOUNT_CUR.execute(f'''
+            CREATE TABLE 
+                {ACCOUNT_USERNAME} (
+                    account TEXT PRIMARY KEY, 
+                    points INTEGER, 
+                    history TEXT
+                    
+            )
+        ;''')
+
+        ACCOUNT_CUR.execute(f'''
+            INSERT INTO
+                {ACCOUNT_USERNAME}
+            VALUES (
+                ?, ?, ?
+            )
+        
+        ;''', [ACCOUNT_USERNAME, POINTS, TRANSACTION])
+
+        ACCOUNT_CON.commit()
 
 
 
@@ -437,7 +582,55 @@ Welcome to the Trendy Market!! We source the best quality foods from this planet
     ''')
 
 def displayProducts(PRODUCT):
-        print(f'''
+    print(PRODUCT)
+    RAW_DATA = CURSOR.execute('''
+        SELECT
+            *
+        FROM
+            market
+        WHERE
+            item = ?
+    ;''', [PRODUCT[2]]).fetchone()
+
+    DATA = RAW_DATA[-2]
+    LIST = []
+    start = False
+    end = False
+    checks = ""
+    TOTAL_DATA = []
+
+    if DATA != None:
+        for i in range(len(DATA)):
+
+            checks = checks + DATA[i]
+
+            if DATA[i] == "," and start == False:
+                LIST.append(checks[:-1])
+                checks = ""
+
+            #checking if there is a comment so we can keep the comma within the comment but don't recognize it as a split
+            elif DATA[i] == '"' and start == False:
+                checks = ""
+                start = True
+        
+            elif DATA[i] == '"' and start == True: #if a character is "
+                if i == len(DATA) - 1:
+                    LIST.append(checks[:-1])
+        
+                end = True
+        
+            elif DATA[i] == "," and end == True: #checks if comma is between ""
+                LIST.append(checks[:-2])
+                checks = ""
+                end = False
+                start = False
+            
+            elif i == len(DATA)-1:
+                LIST.append(checks)
+        
+        TOTAL_DATA.append(LIST)
+
+    print(f'''
 {PRODUCT[2]}
 ----------------------
 {PRODUCT[4]}
@@ -445,7 +638,15 @@ def displayProducts(PRODUCT):
 Price: ${PRODUCT[3]}
 Quantity Available: {PRODUCT[5]}
 
-        ''')
+Reviews:''')
+
+    if DATA != None:
+        REVIEWS = TOTAL_DATA[0]
+
+        for review in REVIEWS:
+            print("~", review)
+    else:
+        print("There are no reviews")
 
 def displayCart(CART):
     for i in range(len(CART)):
@@ -456,7 +657,6 @@ def displayCart(CART):
 
     
         print(f"{ITEM}(x{QUANTITY}) = ${UNIT_PRICE}")
-
 
 
 if __name__ == "__main__":
@@ -470,177 +670,174 @@ if __name__ == "__main__":
 
         OPERATION = menu()
 
-        if OPERATION == 1:
-            #while True:
-                CATEGORY = shopSections()
+        while OPERATION == 1:
+            CATEGORY = shopSections()
 
-                if CATEGORY == 1:
-                    MEATS = shopMeats()
-                    sortCategory(MEATS)
-                    MEAT_ITEM = selectMeat()
-                    PRODUCT = getProduct(MEAT_ITEM) #array with product details
-                    displayProducts(PRODUCT)
+            if CATEGORY == 1:
+                MEATS = shopMeats()
+                sortCategory(MEATS)
+                MEAT_ITEM = selectMeat()
+                PRODUCT = getProduct(MEAT_ITEM) #array with product details
+                displayProducts(PRODUCT)
 
-                    DIRECTION = directionChoice()
+                DIRECTION = directionChoice()
 
-                    if DIRECTION == 1:
-                        QUANTITY = askQuantity(PRODUCT)
-                        ITEM_TOTAL = itemTotal(PRODUCT, QUANTITY)
-                        ITEM = item(ITEM_TOTAL, MEAT_ITEM, QUANTITY)
-                        CART = cart(ITEM, CART)
-                        addedToCart()
-                        continue
+                if DIRECTION == 1:
+                    QUANTITY = askQuantity(PRODUCT)
+                    ITEM_TOTAL = itemTotal(PRODUCT, QUANTITY)
+                    ITEM = item(ITEM_TOTAL, MEAT_ITEM, QUANTITY)
+                    CART = cart(ITEM, CART)
+                    addedToCart()
+                    break
+                if DIRECTION == 3:
+                    break
+                
+                
+            elif CATEGORY == 2:
+                DAIRY = shopDairy()
+                sortCategory(DAIRY)
+                DAIRY_ITEM = selectDairy()
+                PRODUCT = getProduct(DAIRY_ITEM)
+                displayProducts(PRODUCT)
 
-                    
-                    if DIRECTION == 2:
-                        ##continue shopping
-                        #continue
-                        pass
-                    if DIRECTION == 3:
-                        ##main menu
-                        #menu()
-                        pass
-                      
-                   
-                    
-                elif CATEGORY == 2:
-                    DAIRY = shopDairy()
-                    sortCategory(DAIRY)
-                    DAIRY_ITEM = selectDairy()
-                    PRODUCT = getProduct(DAIRY_ITEM)
-                    displayProducts(PRODUCT)
-
-                    DIRECTION = directionChoice()
+                DIRECTION = directionChoice()
 
 
-                    if DIRECTION == 1:
-                        QUANTITY = askQuantity(PRODUCT)
-                        ITEM_TOTAL = itemTotal(PRODUCT, QUANTITY)
-                        ITEM = item(ITEM_TOTAL, DAIRY_ITEM, QUANTITY)
-                        CART = cart(ITEM, CART)
-                        addedToCart()
-                        continue
-                    if DIRECTION == 2:
-                            pass
-                    if DIRECTION == 3:
-                            pass
+                if DIRECTION == 1:
+                    QUANTITY = askQuantity(PRODUCT)
+                    ITEM_TOTAL = itemTotal(PRODUCT, QUANTITY)
+                    ITEM = item(ITEM_TOTAL, DAIRY_ITEM, QUANTITY)
+                    CART = cart(ITEM, CART)
+                    addedToCart()
+                    break
+                if DIRECTION == 3:
+                    break
 
-                elif CATEGORY == 3:
-                    FROZEN = shopFrozen()
-                    sortCategory(FROZEN)
-                    FROZEN_ITEM= selectFrozen()
-                    PRODUCT = getProduct(FROZEN_ITEM)
-                    displayProducts(PRODUCT)
+            elif CATEGORY == 3:
+                FROZEN = shopFrozen()
+                sortCategory(FROZEN)
+                FROZEN_ITEM= selectFrozen()
+                PRODUCT = getProduct(FROZEN_ITEM)
+                displayProducts(PRODUCT)
 
-                    DIRECTION = directionChoice()
+                DIRECTION = directionChoice()
 
-                    if DIRECTION == 1:
-                        QUANTITY = askQuantity(PRODUCT)
-                        ITEM_TOTAL = itemTotal(PRODUCT, QUANTITY)
-                        ITEM = item(ITEM_TOTAL, FROZEN_ITEM, QUANTITY)
-                        CART = cart(ITEM, CART)
-                        addedToCart()
-                        continue
-                    if DIRECTION == 2:
-                            pass
-                    if DIRECTION == 3:
-                            pass
+                if DIRECTION == 1:
+                    QUANTITY = askQuantity(PRODUCT)
+                    ITEM_TOTAL = itemTotal(PRODUCT, QUANTITY)
+                    ITEM = item(ITEM_TOTAL, FROZEN_ITEM, QUANTITY)
+                    CART = cart(ITEM, CART)
+                    addedToCart()
+                    break
+                if DIRECTION == 3:
+                    break
 
-                elif CATEGORY == 4:
-                    FRUITS = shopFruits()
-                    sortCategory(FRUITS)
-                    FRUIT_ITEM = selectFruits()
-                    PRODUCT = getProduct(FRUIT_ITEM)
-                    displayProducts(PRODUCT)
+            elif CATEGORY == 4:
+                FRUITS = shopFruits()
+                sortCategory(FRUITS)
+                FRUIT_ITEM = selectFruits()
+                PRODUCT = getProduct(FRUIT_ITEM)
+                displayProducts(PRODUCT)
 
-                    DIRECTION = directionChoice()
+                DIRECTION = directionChoice()
 
-                    if DIRECTION == 1:
-                        QUANTITY = askQuantity(PRODUCT)
-                        ITEM_TOTAL = itemTotal(PRODUCT, QUANTITY)
-                        ITEM = item(ITEM_TOTAL, FRUIT_ITEM, QUANTITY)
-                        CART = cart(ITEM, CART)
-                        addedToCart()
-                        continue
-                    if DIRECTION == 2:
-                            pass
-                    if DIRECTION == 3:
-                            pass
+                if DIRECTION == 1:
+                    QUANTITY = askQuantity(PRODUCT)
+                    ITEM_TOTAL = itemTotal(PRODUCT, QUANTITY)
+                    ITEM = item(ITEM_TOTAL, FRUIT_ITEM, QUANTITY)
+                    CART = cart(ITEM, CART)
+                    addedToCart()
+                    break
+                if DIRECTION == 3:
+                    break
 
-                elif CATEGORY == 5:
-                    VEGETABLES = shopVegetables()
-                    sortCategory(VEGETABLES)
-                    VEG_ITEM = selectVegetables()
-                    PRODUCT = getProduct(VEG_ITEM)
-                    displayProducts(PRODUCT)
+            elif CATEGORY == 5:
+                VEGETABLES = shopVegetables()
+                sortCategory(VEGETABLES)
+                VEG_ITEM = selectVegetables()
+                PRODUCT = getProduct(VEG_ITEM)
+                displayProducts(PRODUCT)
 
-                    DIRECTION = directionChoice()
+                DIRECTION = directionChoice()
 
-                    if DIRECTION == 1:
-                        QUANTITY = askQuantity(PRODUCT)
-                        ITEM_TOTAL = itemTotal(PRODUCT, QUANTITY)
-                        ITEM = item(ITEM_TOTAL, VEG_ITEM, QUANTITY)
-                        CART = cart(ITEM, CART)
-                        addedToCart()
-                        continue
-                    if DIRECTION == 2:
-                            pass
-                    if DIRECTION == 3:
-                            pass
-                    
-                elif CATEGORY == 6:
-                    CONDIMENTS = shopCondiments()
-                    sortCategory(CONDIMENTS)
-                    CONDIMENT_ITEM = selectCondiments()
-                    PRODUCT = getProduct(CONDIMENT_ITEM)
-                    displayProducts(PRODUCT)
+                if DIRECTION == 1:
+                    QUANTITY = askQuantity(PRODUCT)
+                    ITEM_TOTAL = itemTotal(PRODUCT, QUANTITY)
+                    ITEM = item(ITEM_TOTAL, VEG_ITEM, QUANTITY)
+                    CART = cart(ITEM, CART)
+                    addedToCart()
+                    break
+                if DIRECTION == 3:
+                    break
+                
+            elif CATEGORY == 6:
+                CONDIMENTS = shopCondiments()
+                sortCategory(CONDIMENTS)
+                CONDIMENT_ITEM = selectCondiments()
+                PRODUCT = getProduct(CONDIMENT_ITEM)
+                displayProducts(PRODUCT)
 
-                    DIRECTION = directionChoice()
+                DIRECTION = directionChoice()
 
-                    if DIRECTION == 1:
-                        QUANTITY = askQuantity(PRODUCT)
-                        ITEM_TOTAL = itemTotal(PRODUCT, QUANTITY)
-                        ITEM = item(ITEM_TOTAL, CONDIMENT_ITEM, QUANTITY)
-                        CART = cart(ITEM, CART)
-                        addedToCart()
-                        continue
-                    if DIRECTION == 2:
-                            pass
-                    if DIRECTION == 3:
-                            pass
-                    
-                elif CATEGORY == 7:
-                    BAKING =shopBaking()
-                    sortCategory(BAKING)
-                    BAKING_ITEM = selectBaking()
-                    PRODUCT = getProduct(BAKING_ITEM)
-                    displayProducts(PRODUCT)
+                if DIRECTION == 1:
+                    QUANTITY = askQuantity(PRODUCT)
+                    ITEM_TOTAL = itemTotal(PRODUCT, QUANTITY)
+                    ITEM = item(ITEM_TOTAL, CONDIMENT_ITEM, QUANTITY)
+                    CART = cart(ITEM, CART)
+                    addedToCart()
+                    break
+                if DIRECTION == 3:
+                    break
+                
+            elif CATEGORY == 7:
+                BAKING =shopBaking()
+                sortCategory(BAKING)
+                BAKING_ITEM = selectBaking()
+                PRODUCT = getProduct(BAKING_ITEM)
+                displayProducts(PRODUCT)
 
-                    DIRECTION = directionChoice()
+                DIRECTION = directionChoice()
 
-                    if DIRECTION == 1:
-                        QUANTITY = askQuantity(PRODUCT)
-                        ITEM_TOTAL = itemTotal(PRODUCT, QUANTITY)
-                        ITEM = item(ITEM_TOTAL, BAKING_ITEM, QUANTITY)
-                        CART = cart(ITEM, CART)
-                        addedToCart()
-                        continue
-                    if DIRECTION == 2:
-                            pass
-                    if DIRECTION == 3:
-                            pass
+                if DIRECTION == 1:
+                    QUANTITY = askQuantity(PRODUCT)
+                    ITEM_TOTAL = itemTotal(PRODUCT, QUANTITY)
+                    ITEM = item(ITEM_TOTAL, BAKING_ITEM, QUANTITY)
+                    CART = cart(ITEM, CART)
+                    addedToCart()
+                    break
+                if DIRECTION == 3:
+                    break
 
         if OPERATION == 2:
                 print(CART)
                 updateQuantity(CART)
                 displayCart(CART)
                 CHECKOUT = askCheckOut()
+                ##point system here
+                
+               
 
                 if CHECKOUT == "y" or CHECKOUT == "yes" or CHECKOUT == "Y" or CHECKOUT == "Yes":
-                    pass
-                else:
-                    continue
+                    ACCOUNT = input("Do you have an existing account with The Trendy Market?(Y/n)")
+                    if ACCOUNT == "n" or ACCOUNT == "N" or ACCOUNT == "no" or ACCOUNT == "No":
+                        makeAccount(0, "hi") #points, and cart stuff
+                    else:
+                        pass
 
+
+                    ##section where you choose to create an account  or to checkout with an already existing username
+
+
+
+
+
+
+                    print("You have successfully purchased from The Trendy Market.")
+                    purchased(CART)
+                    break
+
+                else:
+                    break
 
                 #[[31.98, 'Ham', 2], [41.97, 'Bacon', 3]]
                 #new quantities would be 13 and 12
