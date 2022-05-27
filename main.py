@@ -188,6 +188,9 @@ def getAnyInput(QUESTION):
     else:
         return INPUT
 
+def getAccountUsername():
+    ACCOUNT_USERNAME =  getAnyInput("a username with no spaces or special characters")
+    return ACCOUNT_USERNAME
 
 ##--PROCESSING--##
 def getRawData(MARKET):
@@ -527,18 +530,16 @@ def getAccount(ACCOUNT_USERNAME):
 
     print(DATA)
 
-def makeAccount():
+def makeAccount(ACCOUNT_USERNAME):
     global ACCOUNT_CUR, ACCOUNT_CON
-    ACCOUNT_USERNAME =  getAnyInput("a username with no spaces or special characters")
- 
 
     if  " " in ACCOUNT_USERNAME:
         print("Please enter a valid username with no spaces or special characters!")
-        return makeAccount()
+        return getAccountUsername()
     
     elif ACCOUNT_USERNAME.isalnum() == False:
         print("Please enter a valid username with no spaces or special characters!")
-        return makeAccount()
+        return getAccountUsername()
 
     ##section where you choose to create an account  or to checkout with an already existing username
     #elif ACCOUNT_USERNAME == :
@@ -842,7 +843,8 @@ if __name__ == "__main__":
                 if CHECKOUT == "y" or CHECKOUT == "yes" or CHECKOUT == "Y" or CHECKOUT == "Yes":
                     ACCOUNT = input("Do you have an existing account with The Trendy Market?(Y/n)")
                     if ACCOUNT == "n" or ACCOUNT == "N" or ACCOUNT == "no" or ACCOUNT == "No":
-                        makeAccount(0, "hi") #points, and cart stuff
+                        ACCOUNT_USERNAME = getAccountUsername()
+                        makeAccount(ACCOUNT_USERNAME) #points, and cart stuff
                     else:
                         pass
 
