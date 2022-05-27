@@ -511,6 +511,7 @@ def purchased(CART):
         CART.pop(CHOICE-1)
 
         if len(CART) == 0:
+            CART = []
             return
 
         return purchased(CART)
@@ -533,6 +534,7 @@ def getAccount(ACCOUNT_USERNAME):
 def makeAccount(ACCOUNT_USERNAME):
     global ACCOUNT_CUR, ACCOUNT_CON
 
+
     if  " " in ACCOUNT_USERNAME:
         print("Please enter a valid username with no spaces or special characters!")
         return getAccountUsername()
@@ -540,6 +542,8 @@ def makeAccount(ACCOUNT_USERNAME):
     elif ACCOUNT_USERNAME.isalnum() == False:
         print("Please enter a valid username with no spaces or special characters!")
         return getAccountUsername()
+
+    
 
     ##section where you choose to create an account  or to checkout with an already existing username
     #elif ACCOUNT_USERNAME == :
@@ -556,6 +560,15 @@ def makeAccount(ACCOUNT_USERNAME):
                     
             )
         ;''')
+
+        ACCOUNT_CUR.execute(f'''
+        INSERT INTO
+            {ACCOUNT_USERNAME}
+        VALUES (
+            ?, ?, ?
+        )
+    
+    ;''', [ACCOUNT_USERNAME, 0, ""])
 
         ACCOUNT_CON.commit()
 
@@ -833,6 +846,7 @@ if __name__ == "__main__":
 
         if OPERATION == 2:
                 print(CART)
+         
                 updateQuantity(CART)
                 displayCart(CART)
                 CHECKOUT = askCheckOut()
