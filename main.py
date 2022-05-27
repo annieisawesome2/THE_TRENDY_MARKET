@@ -12,7 +12,7 @@ MARKET = "the_trendy_market.csv"
 
 ACCOUNTS = "accounts.db"
 DATABASE_FILE = "market.db"
- 
+
 FIRST_RUN = True
 
 ITEM = [0, "", 0, 0]
@@ -27,7 +27,7 @@ CURSOR = CONNECTION.cursor()
 ACCOUNT_CON = sqlite3.connect(ACCOUNTS)
 ACCOUNT_CUR = ACCOUNT_CON.cursor()
 
-##--INPUTS--##
+#### ------INPUTS ------ ####
 def menu():
    """User selects program actions
  
@@ -188,11 +188,7 @@ def getAnyInput(QUESTION):
     else:
         return INPUT
 
-def getAccountUsername():
-    ACCOUNT_USERNAME =  getAnyInput("a username with no spaces or special characters")
-    return ACCOUNT_USERNAME
-
-##--PROCESSING--##
+#### ------ PROCESSING ------ ####
 def getRawData(MARKET):
    """Read CSV file and extract unprocessed data
  
@@ -528,49 +524,70 @@ def getAccount(ACCOUNT_USERNAME):
             account = ?
         
     ;''')
-
     print(DATA)
 
-def makeAccount(ACCOUNT_USERNAME):
+def makeAccount():
     global ACCOUNT_CUR, ACCOUNT_CON
 
+    ACCOUNT_USERNAME =  getAnyInput("a username with no spaces or special characters")
 
     if  " " in ACCOUNT_USERNAME:
         print("Please enter a valid username with no spaces or special characters!")
-        return getAccountUsername()
+        return makeAccount()
     
     elif ACCOUNT_USERNAME.isalnum() == False:
         print("Please enter a valid username with no spaces or special characters!")
-        return getAccountUsername()
-
-    
-
-    ##section where you choose to create an account  or to checkout with an already existing username
-    #elif ACCOUNT_USERNAME == :
-        #print("Sorry this username is taken, please enter a new one.")
-        #return makeAccount(POINTS, TRANSACTION)
+        return makeAccount()
 
     else:
-        ACCOUNT_CUR.execute(f'''
-            CREATE TABLE 
-                {ACCOUNT_USERNAME} (
-                    account TEXT PRIMARY KEY, 
-                    points INTEGER, 
-                    history TEXT
-                    
+        try:
+            ACCOUNT_CUR.execute(f'''
+                CREATE TABLE 
+                    {ACCOUNT_USERNAME} (
+                        account TEXT PRIMARY KEY, 
+                        points INTEGER, 
+                        history TEXT
+                        
+                )
+            ;''')
+
+            ACCOUNT_CUR.execute(f'''
+            INSERT INTO
+                {ACCOUNT_USERNAME}
+            VALUES (
+                ?, ?, ?
             )
-        ;''')
+        
+            ;''', [ACCOUNT_USERNAME, 0, ""])
 
-        ACCOUNT_CUR.execute(f'''
-        INSERT INTO
-            {ACCOUNT_USERNAME}
+            ACCOUNT_CON.commit()
+
+        except sqlite3.OperationalError: 
+            print("sorry this username is taken. Please enter a new one. ")
+            return makeAccount()
+
+        return ACCOUNT_USERNAME
+
+def insertPoints(ACCOUNT):
+    global ACCOUNT_CUR, ACCOUNT_CON
+    for i in range(len(CART)):
+        POINTS = CART[i][3]
+
+    ACCOUNT_CUR.execute(f'''
+        INSERT INTO 
+            {ACCOUNT_USERNAME}(
+                points
+            )
         VALUES (
-            ?, ?, ?
-        )
-    
-    ;''', [ACCOUNT_USERNAME, 0, ""])
+            ?
+            )
+        
+            ;''',[POINTS])
+    ACCOUNT_CON.commit()
 
-        ACCOUNT_CON.commit()
+def insertHistory(ACCOUNT):
+    global ACCOUNT_CUR, ACCOUNT_CON
+    pass
 
 def transactionAndPoints(ACCOUNT_USERNAME, POINTS, TRANSACTION):
     global ACCOUNT_CUR, ACCOUNT_CON
@@ -585,7 +602,6 @@ def transactionAndPoints(ACCOUNT_USERNAME, POINTS, TRANSACTION):
     ;''', [ACCOUNT_USERNAME, POINTS, TRANSACTION])
 
     ACCOUNT_CON.commit()
-
 
 def getPoints(PRODUCT):
     global CURSOR
@@ -602,7 +618,9 @@ def getPoints(PRODUCT):
     
     return POINTS
 
-##--OUTPUTS--##
+
+
+#### ------ OUTPUTS ------ ####
 def intro():
     print('''
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -845,28 +863,38 @@ if __name__ == "__main__":
                     break
 
         if OPERATION == 2:
-                print(CART)
-         
+            print(CART)
+            if CART == []:
+                print("Your Cart is empty")
+                continue
+            else:
                 updateQuantity(CART)
                 displayCart(CART)
                 CHECKOUT = askCheckOut()
                 ##point system here
-                
+                ## make option to delete stuff from cart... check contact list thing
                
 
                 if CHECKOUT == "y" or CHECKOUT == "yes" or CHECKOUT == "Y" or CHECKOUT == "Yes":
-                    ACCOUNT = input("Do you have an existing account with The Trendy Market?(Y/n)")
+                    ACCOUNT = input("Do you have an existing account with The Trendy Market?(Y/n) ")
                     if ACCOUNT == "n" or ACCOUNT == "N" or ACCOUNT == "no" or ACCOUNT == "No":
-                        ACCOUNT_USERNAME = getAccountUsername()
-                        makeAccount(ACCOUNT_USERNAME) #points, and cart stuff
+                   
+                        ACCOUNT_USERNAME = makeAccount()  #returns ACCOUNT_USERNAME
+
+
+
+                        insertPoints(ACCOUNT_USERNAME)
+                        insertHistory(ACCOUNT_USERNAME)
+                      
+                        ##store account username into a file and check if that username is in file. 
                     else:
-                        pass
+                        EXISTING_USERNAME = input("Please enter your existing username: ")
+                        insertPoints(EXISTING_USERNAME)
+                        insertHistory(EXISTING_USERNAME)
+
 
 
                     ##section where you choose to create an account  or to checkout with an already existing username
-
-
-
 
 
 
