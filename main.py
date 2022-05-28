@@ -602,9 +602,10 @@ def customerAccountManagement():
             except sqlite3.OperationalError: 
                 print("sorry this username is taken. Please enter a new one. ")
                 return customerAccountManagement()
+        return ACCOUNT_USERNAME
 
     else:
-        ACCOUNT_USERNAME = input("Please enter you username: ")
+        USERNAME = input("Please enter you username: ")
 
 
     for i in range(len(CART)):
@@ -616,7 +617,7 @@ def customerAccountManagement():
         try:
             ACCOUNT_CUR.execute(f'''
                 INSERT INTO 
-                    {ACCOUNT_USERNAME}(
+                    {USERNAME}(
                         points, 
                         product, 
                         quantity,
@@ -634,15 +635,37 @@ def customerAccountManagement():
         except sqlite3.OperationalError:
             print("Sorry, the username you provided does not exist. Please create a new account if you do not have a valid existing username.")
             return customerAccountManagement()
+        return USERNAME
 
-def totalPoints():
-    global ACCOUNT_CUR, ACCOUNT_CON
+def totalPoints(ACCOUNT):
+    global ACCOUNT_CUR
+
+    POINTS = ACCOUNT_CUR.execute(f'''
+        SELECT
+            *
+        FROM
+            {ACCOUNT}
+    ;''').fetchall()
+
+
+    TOTAL = 0
+    for i in range(len(POINTS)):
+        VALUES_POINTS = POINTS[i][0]
+        QUANTITY = POINTS[i][2]
+        #multiply quantity by points of individual items
+
+        TOTAL += VALUES_POINTS
+
+    #multiplly total by $0.02 and display how much money the customer's points correspnds to
+        
+    
+    print(TOTAL)
+   
 
 
     ##get the total points from the table...if points = 0, print that there are no points available to use
     # if there are points in the table, multiply the points by 0.02 cents then ask user if they would like to use the money
     # if user wants to use the money, subtract it from the total cost
-    pass
 
 
 def getPoints(PRODUCT):
@@ -660,6 +683,20 @@ def getPoints(PRODUCT):
     
     return POINTS
 
+
+
+
+def getHistory(ACCOUNT):
+    global ACCOUNT_CUR
+
+    POINTS = ACCOUNT_CUR.execute(f'''
+        SELECT
+            *
+        FROM
+            {ACCOUNT}
+    ;''').fetchall()
+
+    return POINTS
 
 
 #### ------ OUTPUTS ------ ####
@@ -919,22 +956,15 @@ if __name__ == "__main__":
                
 
                 if CHECKOUT == "y" or CHECKOUT == "yes" or CHECKOUT == "Y" or CHECKOUT == "Yes":
-                    customerAccountManagement()  #returns ACCOUNT_USERNAME
-                    totalPoints()
-                        #insertHistory(ACCOUNT_USERNAME)
-                      
-                        ##store account username into a file and check if that username is in file. 
-            
+                    ACCOUNT_USERNAME = customerAccountManagement()  #returns ACCOUNT_USERNAME
 
-                        ##check if username exists... if it doesnt print("Sorry, you don't have an account with The Trendy Market. Please create an account. ")
-                        #return makeAccount if username doesn't exist
-                        #insertHistory(EXISTING_USERNAME)
-
-
-
-                    ##section where you choose to create an account  or to checkout with an already existing username
-
-
+                    totalPoints(ACCOUNT_USERNAME)
+                    #print(POINTS)
+                    ##add all points together from each row. 
+                    #if user decides to use points, delete them from database
+                    #else: pass
+                    
+                        
 
                     print("You have successfully purchased from The Trendy Market!")
                     purchased(CART)
@@ -943,7 +973,7 @@ if __name__ == "__main__":
                 else:
                     continue
 
-                #[[31.98, 'Ham', 2], [41.97, 'Bacon', 3]]
+                
                 #new quantities would be 13 and 12
                 #delete stuff from cart...reference contacts things again  
                 #once user checks out, update quantity
@@ -951,6 +981,8 @@ if __name__ == "__main__":
 
         if OPERATION == 3:
                 pass
+                #update quantity
+                #view past transactions
         
         if OPERATION == 4:
                 exit()
