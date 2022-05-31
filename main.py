@@ -6,6 +6,7 @@ Date: 2022-05-18
 
 import pathlib
 import sqlite3
+from typing import ValuesView
  
 ## --- VARIABLES --- ##
 MARKET = "the_trendy_market.csv"
@@ -113,7 +114,7 @@ def sortCategory(CATEGORY):
 
 
 def selectMeat():
-    ITEM = getInput("Please type in the item you would like to view from the meat products listed", ["Ground Beef", "Maple Roast Beef", "Beef Tenderloin Steak", "Striploin Grilling Steak", "Steak Shoulder Blade", "Ham", "Sirloin Steak", "Pork Tenderloin Whole", "Pork Side Ribs", "Ground Pork Lean", "Pork Sausage", "Bacon", "Pork Chops Loin", "Pork Bellies", "Turkey Hind Quarter", "Turkey Pepperoni", "Turkey Ground Thigh", "Turkey Breast", "Hot Italian Sausage", "Pork Sausages", "Chicken Breast Boneless", "Chicken Thighs", "Chicken Drumsticks", "Chicken Whole"])                                                                 
+    ITEM = getInput("Please type in the item you would like to view from the meat products listed", ["Ground Beef", "Maple Roast Beef", "Beef Tenderloin Steak", "Striploin Grilling Steak", "Steak Shoulder Blade", "Ham", "Sirloin Steak", "Pork Tenderloin Whole", "Pork Side Ribs", "Ground Pork Lean", "Pork Sausage", "Bacon", "Pork Chops Loin", "Pork Bellies", "Turkey Hind Quarter", "Turkey Pepperoni", "Turkey Ground Thigh", "Turkey Breast", "Hot Italian Sausage Meat", "Pork Sausages", "Chicken Breast Boneless", "Chicken Thighs", "Chicken Drumsticks", "Chicken Whole"])                                                                 
     return ITEM
 
 def selectDairy():
@@ -515,61 +516,24 @@ def purchased(CART):
 
 def totalCost():
     TOTAL = 0
+    COUNT_POINTS = 0
     for i in range(len(CART)):
+        POINTS = CART[i][3]
+        QUANTITY = CART[i][2]
+        POINTS_FINAL = POINTS * QUANTITY
         CART_MONEY = CART[i][0]
+        COUNT_POINTS += POINTS_FINAL
         TOTAL += CART_MONEY
+
     TOTAL = round(TOTAL, 2)
     TOTAL = "{:.2f}".format(TOTAL)
     print(f"Total cost: ${TOTAL}")
+    print(f"You can earn {COUNT_POINTS} points from this cart!")
+    print("Each point is worth $0.02 at The Trendy Market! Buy more = Save more")
+    return TOTAL
 
-def getAccount(ACCOUNT_USERNAME):
-    global ACCOUNT_CUR, ACCOUNT_CON
-    
-    DATA = ACCOUNT_CUR.execute(f'''
-        SELECT
-            *
-        FROM
-            {ACCOUNT_USERNAME}
-        WHERE
-            account = ?
-        
-    ;''')
-    print(DATA)
 
-def makeAccount():
-    global ACCOUNT_CUR, ACCOUNT_CON
-
-    ACCOUNT_USERNAME =  getAnyInput("a username with no spaces or special characters")
-
-    if  " " in ACCOUNT_USERNAME:
-        print("Please enter a valid username with no spaces or special characters!")
-        return makeAccount()
-    
-    elif ACCOUNT_USERNAME.isalnum() == False:
-        print("Please enter a valid username with no spaces or special characters!")
-        return makeAccount()
-
-    else:
-        try:
-            ACCOUNT_CUR.execute(f'''
-                CREATE TABLE 
-                    {ACCOUNT_USERNAME} (
-                        points INTEGER, 
-                        product TEXT, 
-                        quantity INTEGER,
-                        total_price 
-                )
-            ;''')
-
-            ACCOUNT_CON.commit()
-
-        except sqlite3.OperationalError: 
-            print("sorry this username is taken. Please enter a new one. ")
-            return makeAccount()
-
-        return ACCOUNT_USERNAME
-
-def customerAccountManagement():
+def customerAccountManagement(TOTAL_COST):
     global ACCOUNT_CUR, ACCOUNT_CON
 
     ASK_ACCOUNT = input("Do you have an existing account with The Trendy Market?(Y/n) ")
@@ -579,11 +543,11 @@ def customerAccountManagement():
 
         if  " " in ACCOUNT_USERNAME:
             print("Please enter a valid username with no spaces or special characters!")
-            return customerAccountManagement()
+            return customerAccountManagement(TOTAL_COST)
         
         elif ACCOUNT_USERNAME.isalnum() == False:
             print("Please enter a valid username with no spaces or special characters!")
-            return customerAccountManagement()
+            return customerAccountManagement(TOTAL_COST)
 
         else:
             try:
@@ -601,72 +565,123 @@ def customerAccountManagement():
 
             except sqlite3.OperationalError: 
                 print("sorry this username is taken. Please enter a new one. ")
-                return customerAccountManagement()
-        return ACCOUNT_USERNAME
+                return customerAccountManagement(TOTAL_COST)
+
+        for i in range(len(CART)):
+                PRICE = CART[i][0]
+                PRODUCT = CART[i][1]
+                QUANTITY = CART[i][2]
+                POINTS = CART[i][3]
+                
+                ACCOUNT_CUR.execute(f'''
+                    INSERT INTO 
+                        {ACCOUNT_USERNAME}(
+                            points, 
+                            product, 
+                            quantity,
+                            total_price 
+                        )
+                    VALUES (
+                        ?, ?, ?, ?
+                        )
+                    
+                        ;''',[POINTS, PRODUCT, QUANTITY, PRICE])
+
+                ACCOUNT_CON.commit()      
+  
 
     else:
         USERNAME = input("Please enter you username: ")
 
-
-    for i in range(len(CART)):
-        PRICE = CART[i][0]
-        PRODUCT = CART[i][1]
-        QUANTITY = CART[i][2]
-        POINTS = CART[i][3]
+        if  " " in ACCOUNT_USERNAME:
+            print("Please enter a valid username with no spaces or special characters!")
+            return customerAccountManagement(TOTAL_COST)
         
-        try:
-            ACCOUNT_CUR.execute(f'''
-                INSERT INTO 
-                    {USERNAME}(
-                        points, 
-                        product, 
-                        quantity,
-                        total_price 
-                    )
-                VALUES (
-                    ?, ?, ?, ?
-                    )
+        elif ACCOUNT_USERNAME.isalnum() == False:
+            print("Please enter a valid username with no spaces or special characters!")
+            return customerAccountManagement(TOTAL_COST)
+        else:
+
+            try:
+                POINTS = ACCOUNT_CUR.execute(f'''
+                            SELECT
+                                *
+                            FROM
+                                {USERNAME}
+                        ;''').fetchall()
+
+                TOTAL = 0
+                for i in range(len(POINTS)):
+                    VALUES_POINTS = POINTS[i][0]
+                    QUANTITY = POINTS[i][2]
+                    TOTAL_POINTS = QUANTITY * VALUES_POINTS
+                    TOTAL += TOTAL_POINTS
+                MONEY = TOTAL * 0.02
+                MONEY = "{:.2f}".format(MONEY)
+
+                print(f'''
+    You have a total of {TOTAL} points!
+    This corresponds to ${MONEY} usable at The Trendy Market!
+            ''')
+
+                SPEND = input("Would you like to use your points for this purchase?(Y/n) ")
+                if  SPEND == "y" or  SPEND == "Y" or  SPEND == "yes" or  SPEND == "Yes":
+                    ACCOUNT_CUR.execute(f'''
+                        UPDATE
+                            {USERNAME}
+                        SET
+                            points = 0
+                        ;''')
+
+                    ACCOUNT_CON.commit()
+
+
+                    TOTAL_COST = float(TOTAL_COST)
+                    MONEY = float(MONEY)
+
+                    NEW_COST = TOTAL_COST - MONEY
+                    NEW_COST = "{:.2f}".format(NEW_COST)
+                    print(f"Your new total at The Trendy Market is ${NEW_COST}")
+
                 
-                    ;''',[POINTS, PRODUCT, QUANTITY, PRICE])
+                else:
+                    pass
 
-            ACCOUNT_CON.commit()
+            except UnboundLocalError:
+                print("Sorry, the username you provided does not exist. Please create a new account if you do not have a valid existing username.")
+                return customerAccountManagement(TOTAL_COST)
+            
 
+                
+            for i in range(len(CART)):
+                PRICE = CART[i][0]
+                PRODUCT = CART[i][1]
+                QUANTITY = CART[i][2]
+                POINTS = CART[i][3]
+                
+                try:
+                    ACCOUNT_CUR.execute(f'''
+                        INSERT INTO 
+                            {USERNAME}(
+                                points, 
+                                product, 
+                                quantity,
+                                total_price 
+                            )
+                        VALUES (
+                            ?, ?, ?, ?
+                            )
+                        
+                            ;''',[POINTS, PRODUCT, QUANTITY, PRICE])
 
-        except sqlite3.OperationalError:
-            print("Sorry, the username you provided does not exist. Please create a new account if you do not have a valid existing username.")
-            return customerAccountManagement()
-        return USERNAME
-
-def totalPoints(ACCOUNT):
-    global ACCOUNT_CUR
-
-    POINTS = ACCOUNT_CUR.execute(f'''
-        SELECT
-            *
-        FROM
-            {ACCOUNT}
-    ;''').fetchall()
-
-
-    TOTAL = 0
-    for i in range(len(POINTS)):
-        VALUES_POINTS = POINTS[i][0]
-        QUANTITY = POINTS[i][2]
-        #multiply quantity by points of individual items
-
-        TOTAL += VALUES_POINTS
-
-    #multiplly total by $0.02 and display how much money the customer's points correspnds to
-        
-    
-    print(TOTAL)
-   
+                    ACCOUNT_CON.commit()
 
 
-    ##get the total points from the table...if points = 0, print that there are no points available to use
-    # if there are points in the table, multiply the points by 0.02 cents then ask user if they would like to use the money
-    # if user wants to use the money, subtract it from the total cost
+                except sqlite3.OperationalError:
+                    print("Sorry, the username you provided does not exist. Please create a new account if you do not have a valid existing username.")
+                    return customerAccountManagement(TOTAL_COST)
 
+            
 
 def getPoints(PRODUCT):
     global CURSOR
@@ -682,8 +697,6 @@ def getPoints(PRODUCT):
     POINTS = POINTS_ARRAY[7]
     
     return POINTS
-
-
 
 
 def getHistory(ACCOUNT):
@@ -947,33 +960,25 @@ if __name__ == "__main__":
                 print("Your Cart is empty")
                 continue
             else:
-                #updateQuantity(CART)
+             
                 displayCart(CART)
-                totalCost()
+                TOTAL_COST = totalCost()
                 CHECKOUT = askCheckOut()
-                ##point system heretotalPoints()
+               
                 ## make option to delete stuff from cart... check contact list thing
                
 
                 if CHECKOUT == "y" or CHECKOUT == "yes" or CHECKOUT == "Y" or CHECKOUT == "Yes":
-                    ACCOUNT_USERNAME = customerAccountManagement()  #returns ACCOUNT_USERNAME
-
-                    totalPoints(ACCOUNT_USERNAME)
-                    #print(POINTS)
-                    ##add all points together from each row. 
-                    #if user decides to use points, delete them from database
-                    #else: pass
-                    
-                        
+                    customerAccountManagement(TOTAL_COST)  #returns ACCOUNT_USERNAME
 
                     print("You have successfully purchased from The Trendy Market!")
-                    purchased(CART)
+                    purchased(CART)#clearing cart and review
                     continue
 
                 else:
                     continue
 
-                
+
                 #new quantities would be 13 and 12
                 #delete stuff from cart...reference contacts things again  
                 #once user checks out, update quantity
