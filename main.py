@@ -16,7 +16,7 @@ DATABASE_FILE = "market.db"
 
 FIRST_RUN = True
 
-ITEM = [0, "", 0, 0]
+ITEM = [0, "", 0, 0] #price, product, quantity, points
 CART = []
 # Test if FILENAME already exists
 if (pathlib.Path.cwd() / DATABASE_FILE).exists():
@@ -114,34 +114,74 @@ def sortCategory(CATEGORY):
 
 
 def selectMeat():
+    """User can select a meat product
+
+    Returns:
+       str: 
+    """
     ITEM = getInput("Please type in the item you would like to view from the meat products listed", ["Ground Beef", "Maple Roast Beef", "Beef Tenderloin Steak", "Striploin Grilling Steak", "Steak Shoulder Blade", "Ham", "Sirloin Steak", "Pork Tenderloin Whole", "Pork Side Ribs", "Ground Pork Lean", "Pork Sausage", "Bacon", "Pork Chops Loin", "Pork Bellies", "Turkey Hind Quarter", "Turkey Pepperoni", "Turkey Ground Thigh", "Turkey Breast", "Hot Italian Sausage Meat", "Pork Sausages", "Chicken Breast Boneless", "Chicken Thighs", "Chicken Drumsticks", "Chicken Whole"])                                                                 
     return ITEM
 
 def selectDairy():
+    """User can select a dairy product
+
+    Returns:
+       str: 
+    """
     ITEM = getInput("Please type in the item you would like to view from the dairy products listed", ["Skim Milk", "1% Milk", "2% Milk", "3% Milk", "Whipping Cream", "Chocolate Milk", "Parmesan Cheese", "Cheddar Cheese", "Swiss Cheese", "Strawberry Yogurt", "Blueberry Yogurt", "Vanilla Yogurt", "Greek Yogurt", "White Eggs", "Brown Eggs", "Sour Cream", "Butter", "Feta Cheese", "Almond Milk", "Cashew Milk"])
     return ITEM
 
 def selectFrozen():
+    """User can select a frozen product
+
+    Returns:
+       str: 
+    """
     ITEM = getInput("Please type in the item you would like to view from the frozen products listed", ["Vanilla Ice Cream", "Chocolate Ice Cream", "Strawberry Ice Cream", "Popsicles", "Frozen Blueberries", "Frozen Strawberries", "Frozen Rasberries", "Frozen Mangoes", "Frozen Pinapples", "Frozen Blackberries", "Frozen Scallops", "Frozen Peas", "Frozen Fillets", "Frozen Prawns", "Frozen Salmon"])
     return ITEM
 
 def selectFruits():
+    """User can select a fruit product
+
+    Returns:
+       str: 
+    """
     ITEM = getInput("Please type in the item you would like to view from the fruit products listed", ["Blueberries", "Pinapple","Strawberries","Bananas","Apples","Oranges","Mandarins","Peaches","Green Grapes","Red Grapes","Mangoes","Dragon Fruit","Passion Fruit","Watermelon","Pears","Cherries"])
     return ITEM
 
 def selectVegetables():
+    """User can select a vegetable product
+
+    Returns:
+       str: 
+    """
     ITEM = getInput("Please type in the item you would like to view from the vegetable products listed", ["Mushrooms","Red Onions","Garlic","Avacados","Green Peppers","Celery","Carrot","Potatoes","Tomatoes","Cucumbers","Lettuce","Cabbage","Green Onions","Romaine Hearts","Peas","Red peppers","Yellow Peppers","Orange Peppers","Zucchini","Kale","Winter Melon","Beets","Corn","Yam","Spinach","Baby Spinach","Broccoli","Squash","Green Bean","Cilantro","Ginger","Turnip","Pumpkin"])
     return ITEM
 
 def selectCondiments():
+    """User can select a condiment
+
+    Returns:
+       str: 
+    """
     ITEM = getInput("Please type in the item you would like to view from the condiment products listed", ["Mustard","Ketchup","Relish","Mayo","Ranch","Honey","Sriracha","Soy Sauce","Olive Oil","Canola Oil","Mayonnaise","Maple Syrup","Hot Sauce","Vinager"])
     return ITEM
 
 def selectBaking():
+    """User can select a baking product
+
+    Returns:
+       str: 
+    """
     ITEM = getInput("Please type in the item you would like to view from the baking products listed", ["Sugar","Salt","Flour","Coca Powder","Baking Powder","Baking Soda","Vanilla Cake Mix","Chocolate Cake Mix","Icing","Butter Cream","Classic Sprinkles","Vanilla Extract","Blue Food Coloring","Yellow Food Coloring","Red Food Coloring","Pink Food Coloring","Green Food Coloring","Icing Sugar","Baking Soda","Chocolate Chips","Almond Extract","Cinnamon","Brown Sugar","Yeast","Red Velvet Cake Mix","Whole Wheat Flour","Cornmeal","Cornstarch"])
     return ITEM
 
 def directionChoice():
+    """User can choose to add item to cart, continue shopping, or go back to main menu
+
+    Returns:
+        _type_: _description_
+    """
     print('''
     1. Add item to Cart
     2. Continue Shopping
@@ -157,12 +197,21 @@ def directionChoice():
        return directionChoice()
 
 def askQuantity(PRODUCT):
-    ##must check if quantity is less than what is available
+    """Input quantity and check availability of stock
+
+    Args:
+        PRODUCT (list): 
+
+    Returns:
+        int: quantity
+    """
+    
     QUANTITY = input("Quantity? ")
     QUANTITY = checkInt(QUANTITY)
 
     AVAILABLE = PRODUCT[5]
     
+    ##must check if quantity is less than what is available
     if QUANTITY > AVAILABLE:
         print("There is not enough in stock. Please enter a new quantity.")
         return askQuantity(PRODUCT)
@@ -177,11 +226,27 @@ def askCheckOut(): ## sourced from Calc2.py
     return AGAIN
 
 def review(ITEM):
+    """user can input a review
+
+    Args:
+        ITEM (str): product
+
+    Returns:
+        str: review
+    """
     REVIEW = input(f"Write your review for {ITEM}: ")
     REVIEW = f'"{REVIEW}",'
     return REVIEW
 
 def getAnyInput(QUESTION):
+    """checks for a correct input
+
+    Args:
+        QUESTION (str): 
+
+    Returns:
+        str: 
+    """
     INPUT = input(f"Please enter {QUESTION}: ")
     if INPUT == "":
         print("Cannot be left blank")
@@ -302,6 +367,11 @@ def importData(RAW_DATA):
 
 
 def shopMeats():
+    """getting meats from database
+
+    Returns:
+        list: 
+    """
     global CURSOR
     MEATS = CURSOR.execute('''
         SELECT
@@ -315,6 +385,11 @@ def shopMeats():
     return MEATS
 
 def shopDairy():
+    """getting dairy products from database
+
+    Returns:
+        list: 
+    """
     global CURSOR
     DAIRY = CURSOR.execute('''
         SELECT
@@ -328,6 +403,11 @@ def shopDairy():
     return DAIRY
 
 def shopFrozen():
+    """getting frozen products from database
+
+    Returns:
+        list: 
+    """
     global CURSOR
     FROZEN = CURSOR.execute('''
         SELECT
@@ -342,6 +422,11 @@ def shopFrozen():
     return FROZEN
 
 def shopFruits():
+    """getting fruits from database
+
+    Returns:
+        list: 
+    """
     global CURSOR
     FRUITS = CURSOR.execute('''
         SELECT
@@ -356,6 +441,11 @@ def shopFruits():
 
 
 def shopVegetables():
+    """getting vegetables from database
+
+    Returns:
+        list: 
+    """
     global CURSOR
     VEGETABLES = CURSOR.execute('''
         SELECT
@@ -370,6 +460,11 @@ def shopVegetables():
 
 
 def shopCondiments():
+    """getting condiments from database
+
+    Returns:
+        list: 
+    """
     global CURSOR
     CONDIMENTS = CURSOR.execute('''
         SELECT
@@ -384,6 +479,11 @@ def shopCondiments():
     return CONDIMENTS
 
 def shopBaking():
+    """getting baking products from database
+
+    Returns:
+        list: 
+    """
     global CURSOR
     BAKING = CURSOR.execute('''
         SELECT
@@ -398,6 +498,14 @@ def shopBaking():
     return BAKING
 
 def getProduct(ITEM):
+    """getting single array with info for chosen product
+
+    Args:
+        ITEM (str): 
+
+    Returns:
+        list: 
+    """
     global CURSOR
     PRODUCT = CURSOR.execute('''
         SELECT
@@ -411,10 +519,30 @@ def getProduct(ITEM):
     return PRODUCT
 
 def itemTotal(PRODUCT, QUANTITY):
+    """multiplying item price by quantity
+
+    Args:
+        PRODUCT (list): 
+        QUANTITY (int): 
+
+    Returns:
+        int:
+    """
     TOTAL_FOR_ITEM = PRODUCT[3] * QUANTITY
     return TOTAL_FOR_ITEM
 
 def item(ITEM_TOTAL, MEAT_ITEM, QUANTITY, POINTS):
+    """putting all items from market database into a list
+
+    Args:
+        ITEM_TOTAL (flaot): 
+        MEAT_ITEM (str): 
+        QUANTITY (int): 
+        POINTS (int): 
+
+    Returns:
+        list: 
+    """
     ITEM[0] = ITEM_TOTAL
     ITEM[1] = MEAT_ITEM
     ITEM[2] = QUANTITY
@@ -422,19 +550,24 @@ def item(ITEM_TOTAL, MEAT_ITEM, QUANTITY, POINTS):
     return ITEM
 
 def cart(ITEM, CART):
+    """appending to cart array
+
+    Args:
+        ITEM (list): 
+        CART (list): 
+
+    Returns:
+        _type_: _description_
+    """
     CART.append(ITEM[:])
     return CART
 
-def addedToCart():
-    for i in range(len(CART)):
-        PRODUCT = CART[i][1]
-        QUANTITY = CART[i][2]
-
-    print(f'''
-{PRODUCT}(x{QUANTITY}) is successfully added to cart!
-        ''')
-
 def updateQuantity(CART):
+    """update quantity of item in database
+
+    Args:
+        CART (list): 
+    """
     global CURSOR, CONNECTION
     for i in range(len(CART)):
 
@@ -449,10 +582,34 @@ def updateQuantity(CART):
         ;''', [CART[i][1]]).fetchone()
 
         UPDATED_QUANTITY = INITIAL_QUANTITY[5] - CART[i][2]
-        print(UPDATED_QUANTITY)
+
+
+        CURSOR.execute('''
+            UPDATE
+                market
+            SET
+                quantity = ?
+            WHERE
+                item = ?
+        
+        
+        ;''', [UPDATED_QUANTITY, CART[i][1]])
+
+        CONNECTION.commit()
+
+
+    
+
+        
+        
     
 
 def purchased(CART):
+    """reviewing items and putting reviews into database
+
+    Args:
+        CART (list):
+    """
     global CURSOR, CONNECTION
 
     ADD = input("Give a review? Y/n")
@@ -515,6 +672,11 @@ def purchased(CART):
 
 
 def totalCost():
+    """Total the cost and points that may be earned from the transaction
+
+    Returns:
+       float: 
+    """
     TOTAL = 0
     COUNT_POINTS = 0
     for i in range(len(CART)):
@@ -527,20 +689,30 @@ def totalCost():
 
     TOTAL = round(TOTAL, 2)
     TOTAL = "{:.2f}".format(TOTAL)
-    print(f"Total cost: ${TOTAL}")
+    print(f'''
+Total cost: ${TOTAL}''')
     print(f"You can earn {COUNT_POINTS} points from this cart!")
     print("Each point is worth $0.02 at The Trendy Market! Buy more = Save more")
     return TOTAL
 
 
 def customerAccountManagement(TOTAL_COST):
+    """creating account, inputting data into account, using existing account, using points from account
+
+    Args:
+        TOTAL_COST (float):
+
+    """
     global ACCOUNT_CUR, ACCOUNT_CON
 
+    ### -- CREATING NEW ACCOUNT --- ###
     ASK_ACCOUNT = input("Do you have an existing account with The Trendy Market?(Y/n) ")
     if ASK_ACCOUNT == "n" or ASK_ACCOUNT == "N" or ASK_ACCOUNT == "no" or ASK_ACCOUNT == "No":
 
         ACCOUNT_USERNAME =  getAnyInput("a username with no spaces or special characters")
 
+
+        ##check for spaces or special characters
         if  " " in ACCOUNT_USERNAME:
             print("Please enter a valid username with no spaces or special characters!")
             return customerAccountManagement(TOTAL_COST)
@@ -549,6 +721,7 @@ def customerAccountManagement(TOTAL_COST):
             print("Please enter a valid username with no spaces or special characters!")
             return customerAccountManagement(TOTAL_COST)
 
+        #if all is good, proceed with trying to create a table
         else:
             try:
                 ACCOUNT_CUR.execute(f'''
@@ -563,10 +736,12 @@ def customerAccountManagement(TOTAL_COST):
 
                 ACCOUNT_CON.commit()
 
+            #checking if username is taken. If taken, return to ask if they have an account.
             except sqlite3.OperationalError: 
                 print("sorry this username is taken. Please enter a new one. ")
                 return customerAccountManagement(TOTAL_COST)
 
+        #if all goes well with creating a table, proceed with inserting cart items into user's database
         for i in range(len(CART)):
                 PRICE = CART[i][0]
                 PRODUCT = CART[i][1]
@@ -589,27 +764,32 @@ def customerAccountManagement(TOTAL_COST):
 
                 ACCOUNT_CON.commit()      
   
-
+    ### -- USING EXISTING ACCOUNT --- ###
     else:
         USERNAME = input("Please enter you username: ")
 
-        if  " " in ACCOUNT_USERNAME:
+        ##checking for spaces or special characters
+        if  " " in USERNAME:
             print("Please enter a valid username with no spaces or special characters!")
             return customerAccountManagement(TOTAL_COST)
         
-        elif ACCOUNT_USERNAME.isalnum() == False:
+        elif USERNAME.isalnum() == False:
             print("Please enter a valid username with no spaces or special characters!")
             return customerAccountManagement(TOTAL_COST)
-        else:
 
+       
+        else:
+            ##if valid input is entered: 
             try:
+                ##get points from existing account
                 POINTS = ACCOUNT_CUR.execute(f'''
                             SELECT
                                 *
                             FROM
                                 {USERNAME}
                         ;''').fetchall()
-
+                
+                #get total points including quantity
                 TOTAL = 0
                 for i in range(len(POINTS)):
                     VALUES_POINTS = POINTS[i][0]
@@ -620,12 +800,14 @@ def customerAccountManagement(TOTAL_COST):
                 MONEY = "{:.2f}".format(MONEY)
 
                 print(f'''
-    You have a total of {TOTAL} points!
-    This corresponds to ${MONEY} usable at The Trendy Market!
+You have a total of {TOTAL} points!
+This corresponds to ${MONEY} usable at The Trendy Market!
             ''')
 
+                ##spending the points
                 SPEND = input("Would you like to use your points for this purchase?(Y/n) ")
                 if  SPEND == "y" or  SPEND == "Y" or  SPEND == "yes" or  SPEND == "Yes":
+                    ##set points to zero for past items if user chooses to spend
                     ACCOUNT_CUR.execute(f'''
                         UPDATE
                             {USERNAME}
@@ -643,16 +825,17 @@ def customerAccountManagement(TOTAL_COST):
                     NEW_COST = "{:.2f}".format(NEW_COST)
                     print(f"Your new total at The Trendy Market is ${NEW_COST}")
 
-                
+                #if user doesn't want to use the point, don't go through the database at all
                 else:
                     pass
-
+            
+            ##if username does not exist. 
             except UnboundLocalError:
                 print("Sorry, the username you provided does not exist. Please create a new account if you do not have a valid existing username.")
                 return customerAccountManagement(TOTAL_COST)
             
 
-                
+            #after existing points are used, continue to insert newly purchased items into the cart    
             for i in range(len(CART)):
                 PRICE = CART[i][0]
                 PRODUCT = CART[i][1]
@@ -684,6 +867,14 @@ def customerAccountManagement(TOTAL_COST):
             
 
 def getPoints(PRODUCT):
+    """getting the points from product 1D array
+
+    Args:
+        PRODUCT (str): 
+
+    Returns:
+        int: points
+    """
     global CURSOR
     POINTS_ARRAY = CURSOR.execute('''
         SELECT
@@ -699,7 +890,7 @@ def getPoints(PRODUCT):
     return POINTS
 
 
-def getHistory(ACCOUNT):
+def getHistory(ACCOUNT):##get a user to input account then do the try and except thing same as when they were checking out
     global ACCOUNT_CUR
 
     POINTS = ACCOUNT_CUR.execute(f'''
@@ -711,9 +902,22 @@ def getHistory(ACCOUNT):
 
     return POINTS
 
+def manageStock():
+    global CURSOR, CONNECTION
+    ##ask for quantity
+    ##reset stock
+    pass
+
+    
+
+
+
+
 
 #### ------ OUTPUTS ------ ####
 def intro():
+    """starting screen
+    """
     print('''
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Welcome to the Trendy Market!! We source the best quality foods from this planet!
@@ -721,7 +925,12 @@ Welcome to the Trendy Market!! We source the best quality foods from this planet
     ''')
 
 def displayProducts(PRODUCT):
-    print(PRODUCT)
+    """displaying the product information from array
+
+    Args:
+        PRODUCT (list):
+    """
+
     RAW_DATA = CURSOR.execute('''
         SELECT
             *
@@ -788,6 +997,11 @@ Reviews:''')
         print("There are no reviews")
 
 def displayCart(CART):
+    """displaying the cart with quantity and prices
+
+    Args:
+        CART (list):
+    """
     for i in range(len(CART)):
         UNIT_PRICE = CART[i][0]
         ITEM = CART[i][1]
@@ -797,6 +1011,16 @@ def displayCart(CART):
     
         print(f"{ITEM}(x{QUANTITY}) = ${UNIT_PRICE}")
 
+def addedToCart():
+    """displaying message that item has been added to cart
+    """
+    for i in range(len(CART)):
+        PRODUCT = CART[i][1]
+        QUANTITY = CART[i][2]
+
+    print(f'''
+{PRODUCT}(x{QUANTITY}) is successfully added to cart!
+        ''')
 
 if __name__ == "__main__":
     if FIRST_RUN:
@@ -955,7 +1179,7 @@ if __name__ == "__main__":
                     break
 
         if OPERATION == 2:
-            print(CART)
+            
             if CART == []:
                 print("Your Cart is empty")
                 continue
@@ -964,28 +1188,31 @@ if __name__ == "__main__":
                 displayCart(CART)
                 TOTAL_COST = totalCost()
                 CHECKOUT = askCheckOut()
+
+
+    
                
                 ## make option to delete stuff from cart... check contact list thing
                
 
                 if CHECKOUT == "y" or CHECKOUT == "yes" or CHECKOUT == "Y" or CHECKOUT == "Yes":
-                    customerAccountManagement(TOTAL_COST)  #returns ACCOUNT_USERNAME
-
+                    customerAccountManagement(TOTAL_COST) #username and stuff
                     print("You have successfully purchased from The Trendy Market!")
+                    updateQuantity(CART)
+                
                     purchased(CART)#clearing cart and review
                     continue
 
                 else:
                     continue
 
-
-                #new quantities would be 13 and 12
                 #delete stuff from cart...reference contacts things again  
                 #once user checks out, update quantity
                 #Subtract quantity from database
 
         if OPERATION == 3:
                 pass
+                #getHistory(ACCOUNT)
                 #update quantity
                 #view past transactions
         
