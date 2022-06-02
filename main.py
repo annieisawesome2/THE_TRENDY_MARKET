@@ -6,7 +6,7 @@ Date: 2022-05-18
 
 import pathlib
 import sqlite3
-from typing import ValuesView
+
  
 ## --- VARIABLES --- ##
 MARKET = "the_trendy_market.csv"
@@ -146,7 +146,7 @@ def selectFruits():
     Returns:
        str: 
     """
-    ITEM = getInput("Please type in the item you would like to view from the fruit products listed", ["Blueberries", "Pinapple","Strawberries","Bananas","Apples","Oranges","Mandarins","Peaches","Green Grapes","Red Grapes","Mangoes","Dragon Fruit","Passion Fruit","Watermelon","Pears","Cherries"])
+    ITEM = getInput("Please type in the item you would like to view from the fruit products listed", ["Blueberries", "Pineapple","Strawberries","Bananas","Apples","Oranges","Mandarins","Peaches","Green Grapes","Red Grapes","Mangoes","Dragon Fruit","Passion Fruit","Watermelon","Pears","Cherries"])
     return ITEM
 
 def selectVegetables():
@@ -253,6 +253,58 @@ def getAnyInput(QUESTION):
         return getAnyInput(QUESTION)
     else:
         return INPUT
+
+
+def manageMenu():
+   """User selects program action in shop manager section
+ 
+   returns(int): 
+   """
+   print('''
+Please choose an option
+   1. View customer transaction
+   2. Update product quantity/stock
+   3. Back to main menu
+   ''')
+   CHOICE = input("> ")
+   CHOICE = checkInt(CHOICE) ##checking if inputted answer is an integer
+   if CHOICE > 0 and CHOICE < 4:
+       return CHOICE
+   else:
+       print("Please choose a valid number from the menu selection!")
+       return menu()
+
+def getAccount():
+    global ACCOUNT_CUR
+    ACCOUNT_USERNAME = input("Please enter the account username you would like to view: ")
+
+    if  " " in ACCOUNT_USERNAME:
+        print("Please enter a valid username with no spaces or special characters!")
+        return getAccount()
+    
+    elif ACCOUNT_USERNAME.isalnum() == False:
+        print("Please enter a valid username with no spaces or special characters!")
+        return getAccount()
+
+       
+    else:
+        ##if valid input is entered: 
+        try:
+            CUSTOMER = ACCOUNT_CUR.execute(f'''
+                SELECT
+                    *
+                FROM 
+                    {ACCOUNT_USERNAME}
+    
+                ;''').fetchall()
+            
+        except sqlite3.OperationalError:
+            print("Sorry, the username you provided does not exist.")
+            return getAccount()
+        
+        return CUSTOMER, ACCOUNT_USERNAME
+            
+    
 
 #### ------ PROCESSING ------ ####
 def getRawData(MARKET):
@@ -596,13 +648,8 @@ def updateQuantity(CART):
         ;''', [UPDATED_QUANTITY, CART[i][1]])
 
         CONNECTION.commit()
-
-
-    
-
         
         
-    
 
 def purchased(CART):
     """reviewing items and putting reviews into database
@@ -890,17 +937,6 @@ def getPoints(PRODUCT):
     return POINTS
 
 
-def getHistory(ACCOUNT):##get a user to input account then do the try and except thing same as when they were checking out
-    global ACCOUNT_CUR
-
-    POINTS = ACCOUNT_CUR.execute(f'''
-        SELECT
-            *
-        FROM
-            {ACCOUNT}
-    ;''').fetchall()
-
-    return POINTS
 
 def manageStock():
     global CURSOR, CONNECTION
@@ -909,10 +945,6 @@ def manageStock():
     pass
 
     
-
-
-
-
 
 #### ------ OUTPUTS ------ ####
 def intro():
@@ -1022,6 +1054,28 @@ def addedToCart():
 {PRODUCT}(x{QUANTITY}) is successfully added to cart!
         ''')
 
+def displayCustomerHistory(ACCOUNT, ACCOUNT_USERNAME):
+    print(f'''
+{ACCOUNT_USERNAME}
+~~~~~~~~~~~~~~~~~~
+    ''')
+    TOTAL = 0
+    for i in range(len(ACCOUNT)):
+        PRODUCT = ACCOUNT[i][1]
+        QUANTITY = ACCOUNT[i][2]
+        COST =  ACCOUNT[i][3]
+        VALUES_POINTS = ACCOUNT[i][0]
+        TOTAL_POINTS = QUANTITY * VALUES_POINTS
+        TOTAL += TOTAL_POINTS
+        COST = "{:.2f}".format(COST)
+        print(f"{PRODUCT} (x{QUANTITY}) = {COST}")
+    MONEY = TOTAL * 0.02
+    MONEY = "{:.2f}".format(MONEY)
+    print(f"Total points usable for next purchase: {TOTAL} (${MONEY})")
+
+
+
+######## -------- MAIN PROGRAM -------- ########
 if __name__ == "__main__":
     if FIRST_RUN:
         setup()
@@ -1179,22 +1233,15 @@ if __name__ == "__main__":
                     break
 
         if OPERATION == 2:
-            
             if CART == []:
                 print("Your Cart is empty")
                 continue
             else:
-             
                 displayCart(CART)
                 TOTAL_COST = totalCost()
                 CHECKOUT = askCheckOut()
-
-
-    
-               
                 ## make option to delete stuff from cart... check contact list thing
                
-
                 if CHECKOUT == "y" or CHECKOUT == "yes" or CHECKOUT == "Y" or CHECKOUT == "Yes":
                     customerAccountManagement(TOTAL_COST) #username and stuff
                     print("You have successfully purchased from The Trendy Market!")
@@ -1207,12 +1254,23 @@ if __name__ == "__main__":
                     continue
 
                 #delete stuff from cart...reference contacts things again  
-                #once user checks out, update quantity
-                #Subtract quantity from database
+                
 
         if OPERATION == 3:
-                pass
-                #getHistory(ACCOUNT)
+                MANAGE = manageMenu()
+                if MANAGE == 1:
+                    ACCOUNT, ACCOUNT_USERNAME = getAccount()##getting 2D array and account username
+                    displayCustomerHistory(ACCOUNT, ACCOUNT_USERNAME)
+                
+                elif MANAGE == 2:
+                    ##update stock
+                    pass
+
+                else:
+                    continue
+
+        
+                
                 #update quantity
                 #view past transactions
         
