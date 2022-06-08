@@ -82,6 +82,22 @@ def getInput(QUESTION, ANSWER):
        print("Sorry, the item you are looking for is not available in this category of trendy foods.")
        return getInput(QUESTION, ANSWER)
 
+def inputFoods(QUESTION, ANSWER): 
+   """verifies inputted answer is valid
+ 
+   Args:
+       QUESTION (str):
+       ANSWER (str):
+ 
+   Returns:
+       str: returns a capitalized answer if answer is valid
+   """
+   INPUT = input(f"{QUESTION}: ") #makes sure the user inputs specific things in square brackets later on the the inputs
+   if INPUT.title() in ANSWER:
+       return INPUT.title()## capitalizes user's input
+   else:
+       print("Sorry, the item you are looking for is not available in The Trendy Market.")
+       return getInput(QUESTION, ANSWER)
 
 def shopSections():
     """Where user can choose what section to shop in
@@ -137,7 +153,7 @@ def selectFrozen():
     Returns:
        str: 
     """
-    ITEM = getInput("Please type in the item you would like to view from the frozen products listed", ["Vanilla Ice Cream", "Chocolate Ice Cream", "Strawberry Ice Cream", "Popsicles", "Frozen Blueberries", "Frozen Strawberries", "Frozen Rasberries", "Frozen Mangoes", "Frozen Pinapples", "Frozen Blackberries", "Frozen Scallops", "Frozen Peas", "Frozen Fillets", "Frozen Prawns", "Frozen Salmon"])
+    ITEM = getInput("Please type in the item you would like to view from the frozen products listed", ["Vanilla Ice Cream", "Chocolate Ice Cream", "Strawberry Ice Cream", "Popsicles", "Frozen Blueberries", "Frozen Strawberries", "Frozen Rasberries", "Frozen Mangoes", "Frozen Pineapples", "Frozen Blackberries", "Frozen Scallops", "Frozen Peas", "Frozen Fillets", "Frozen Prawns", "Frozen Salmon"])
     return ITEM
 
 def selectFruits():
@@ -164,7 +180,7 @@ def selectCondiments():
     Returns:
        str: 
     """
-    ITEM = getInput("Please type in the item you would like to view from the condiment products listed", ["Mustard","Ketchup","Relish","Mayo","Ranch","Honey","Sriracha","Soy Sauce","Olive Oil","Canola Oil","Mayonnaise","Maple Syrup","Hot Sauce","Vinager"])
+    ITEM = getInput("Please type in the item you would like to view from the condiment products listed", ["Mustard","Ketchup","Relish","Peanut Butter","Ranch","Honey","Sriracha","Soy Sauce","Olive Oil","Canola Oil","Mayonnaise","Maple Syrup","Hot Sauce","Vinager"])
     return ITEM
 
 def selectBaking():
@@ -173,7 +189,7 @@ def selectBaking():
     Returns:
        str: 
     """
-    ITEM = getInput("Please type in the item you would like to view from the baking products listed", ["Sugar","Salt","Flour","Coca Powder","Baking Powder","Baking Soda","Vanilla Cake Mix","Chocolate Cake Mix","Icing","Butter Cream","Classic Sprinkles","Vanilla Extract","Blue Food Coloring","Yellow Food Coloring","Red Food Coloring","Pink Food Coloring","Green Food Coloring","Icing Sugar","Baking Soda","Chocolate Chips","Almond Extract","Cinnamon","Brown Sugar","Yeast","Red Velvet Cake Mix","Whole Wheat Flour","Cornmeal","Cornstarch"])
+    ITEM = getInput("Please type in the item you would like to view from the baking products listed", ["Sugar","Salt","Flour","Cocoa Powder","Baking Powder","Baking Soda","Vanilla Cake Mix","Chocolate Cake Mix","Icing","Almond Flour","Classic Sprinkles","Vanilla Extract","Blue Food Coloring","Yellow Food Coloring","Red Food Coloring","Pink Food Coloring","Green Food Coloring","Icing Sugar","Baking Soda","Chocolate Chips","Almond Extract","Cinnamon","Brown Sugar","Yeast","Red Velvet Cake Mix","Whole Wheat Flour","Cornmeal","Cornstarch"])
     return ITEM
 
 def directionChoice():
@@ -305,6 +321,27 @@ def getAccount():
         return CUSTOMER, ACCOUNT_USERNAME
             
     
+def manageStock():
+    global CURSOR, CONNECTION
+    
+    ASK_ITEM = inputFoods("Please enter the item to update", ["Ground Beef", "Maple Roast Beef", "Beef Tenderloin Steak", "Striploin Grilling Steak", "Steak Shoulder Blade", "Ham", "Sirloin Steak", "Pork Tenderloin Whole", "Pork Side Ribs", "Ground Pork Lean", "Pork Sausage", "Bacon", "Pork Chops Loin", "Pork Bellies", "Turkey Hind Quarter", "Turkey Pepperoni", "Turkey Ground Thigh", "Turkey Breast", "Hot Italian Sausage Meat", "Pork Sausages", "Chicken Breast Boneless", "Chicken Thighs", "Chicken Drumsticks", "Chicken Whole", "Skim Milk", "1% Milk", "2% Milk", "3% Milk", "Whipping Cream", "Chocolate Milk", "Parmesan Cheese", "Cheddar Cheese", "Swiss Cheese", "Strawberry Yogurt", "Blueberry Yogurt", "Vanilla Yogurt", "Greek Yogurt", "White Eggs", "Brown Eggs", "Sour Cream", "Butter", "Feta Cheese", "Almond Milk", "Cashew Milk", "Vanilla Ice Cream", "Chocolate Ice Cream", "Strawberry Ice Cream", "Popsicles", "Frozen Blueberries", "Frozen Strawberries", "Frozen Rasberries", "Frozen Mangoes", "Frozen Pineapples", "Frozen Blackberries", "Frozen Scallops", "Frozen Peas", "Frozen Fillets", "Frozen Prawns", "Frozen Salmon", "Blueberries", "Pineapple","Strawberries","Bananas","Apples","Oranges","Mandarins","Peaches","Green Grapes","Red Grapes","Mangoes","Dragon Fruit","Passion Fruit","Watermelon","Pears","Cherries", "Mushrooms","Red Onions","Garlic","Avacados","Green Peppers","Celery","Carrot","Potatoes","Tomatoes","Cucumbers","Lettuce","Cabbage","Green Onions","Romaine Hearts","Peas","Red peppers","Yellow Peppers","Orange Peppers","Zucchini","Kale","Winter Melon","Beets","Corn","Yam","Spinach","Baby Spinach","Broccoli","Squash","Green Bean","Cilantro","Ginger","Turnip","Pumpkin"])                                                                 
+    ITEM = ASK_ITEM.title()
+    
+    CHOICE = input("New Quantity: ")
+    CHOICE = checkInt(CHOICE) ##checking if inputted answer is an integer
+    
+    CURSOR.execute('''
+        UPDATE
+            market
+        SET
+            quantity = ?
+        WHERE
+            item = ?
+    ;''', [CHOICE, ITEM])
+
+    CONNECTION.commit()
+
+    print(f"{ITEM} quantity has been updated to {CHOICE} available")
 
 #### ------ PROCESSING ------ ####
 def getRawData(MARKET):
@@ -396,12 +433,13 @@ def importData(RAW_DATA):
 
    ## making sure data is null in database if array value is empty or NA. 
    ## turning numeric values in data to become integers
+   
    for i in range(len(RAW_DATA)):
        RAW_DATA[i][0] = int(RAW_DATA[i][0])
        RAW_DATA[i][3] = float(RAW_DATA[i][3])
        RAW_DATA[i][5] = int(RAW_DATA[i][5])
        RAW_DATA[i][7] = int(RAW_DATA[i][7])
-    
+
    for i in range(len(RAW_DATA)):
        for j in range(len(RAW_DATA[i])):
            if RAW_DATA[i][j] == ("" or "NA"):
@@ -877,7 +915,7 @@ This corresponds to ${MONEY} usable at The Trendy Market!
                     pass
             
             ##if username does not exist. 
-            except UnboundLocalError:
+            except sqlite3.OperationalError:
                 print("Sorry, the username you provided does not exist. Please create a new account if you do not have a valid existing username.")
                 return customerAccountManagement(TOTAL_COST)
             
@@ -935,15 +973,6 @@ def getPoints(PRODUCT):
     POINTS = POINTS_ARRAY[7]
     
     return POINTS
-
-
-
-def manageStock():
-    global CURSOR, CONNECTION
-    ##ask for quantity
-    ##reset stock
-    pass
-
     
 
 #### ------ OUTPUTS ------ ####
@@ -1213,7 +1242,7 @@ if __name__ == "__main__":
                     break
                 
             elif CATEGORY == 7:
-                BAKING =shopBaking()
+                BAKING = shopBaking()
                 sortCategory(BAKING)
                 BAKING_ITEM = selectBaking()
                 PRODUCT = getProduct(BAKING_ITEM)
@@ -1258,22 +1287,16 @@ if __name__ == "__main__":
 
         if OPERATION == 3:
                 MANAGE = manageMenu()
-                if MANAGE == 1:
+                if MANAGE == 1:#view past transactions
                     ACCOUNT, ACCOUNT_USERNAME = getAccount()##getting 2D array and account username
                     displayCustomerHistory(ACCOUNT, ACCOUNT_USERNAME)
                 
-                elif MANAGE == 2:
-                    ##update stock
-                    pass
+                elif MANAGE == 2:#update quantity
+                    manageStock()
 
                 else:
                     continue
 
-        
-                
-                #update quantity
-                #view past transactions
-        
         if OPERATION == 4:
                 exit()
                     

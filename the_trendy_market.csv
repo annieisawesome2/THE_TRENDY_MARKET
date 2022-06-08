@@ -59,7 +59,7 @@ id,section,item,price,description,quantity,review,points
 58,Frozen,Frozen Prawns,8.55,"340 grams. Frozen. Medium Prawns. Peeled, Deveined, Tail on. Cooked. 41-50 prawns per pound. Ocean Wise.",15,NA,18
 59,Frozen,Frozen Salmon,33.92,850 grams. Frozen fillets packaged & vacuum sealed. Salmon portion weight may vary from 700g to 1Kg.,15,NA,17
 60,Fruits,Blueberries,6.99,1 pint. These are just some of the trendy blueberries that taste fresh and delicious.,15,NA,19
-61,Fruits,Pinapple,4.29,"1 pinapple. Pineapples have yellow or white pulp, fleshy, aromatic, juicy and sweet.",15,NA,18
+61,Fruits,Pineapple,4.29,"1 pineapple. Pineapples have yellow or white pulp, fleshy, aromatic, juicy and sweet.",15,NA,18
 62,Fruits,Strawberries,4.99,price per pound. 16 oz of fresh delicious strawberries. These are the trendiest strawberries you will meet. ,15,NA,14
 63,Fruits,Bananas,0.44,"118 grams/ 1 banana. Bananas are a good source of several vitamins and minerals, especially potassium, vitamin B6, and vitamin C. Bananas are a good source of potassium. ",15,NA,15
 64,Fruits,Apples,5.99,3 pounds. Canada Extra Fancy 3lb Bag of Gala Apples.,15,NA,18
@@ -81,32 +81,32 @@ id,section,item,price,description,quantity,review,points
 80,Vegetables,Green Peppers,2.11,price per each,15,NA,18
 81,Vegetables,Celery,2.66,price per bunch,15,NA,14
 82,Vegetables,Carrot,3.99,price per 2 pounds,15,NA,15
-83,Vegetables,Potatoes,0,stuff,15,NA,18
-84,Vegetables,Tomatoes,0,stuff,15,NA,12
-85,Vegetables,Cucumbers,0,stuff,15,NA,13
-86,Vegetables,Lettuce,0,stuff,15,NA,13
-87,Vegetables,Cabbage,0,stuff,15,NA,14
-88,Vegetables,Green Onions,0,stuff,15,NA,19
-89,Vegetables,Romaine Hearts,0,stuff,15,NA,19
-90,Vegetables,Peas,0,stuff,15,NA,16
-91,Vegetables,Red peppers,0,stuff,15,NA,17
-92,Vegetables,Yellow Peppers,0,stuff,15,NA,15
-93,Vegetables,Orange Peppers,0,stuff,15,NA,16
-94,Vegetables,Zucchini,0,stuff,15,NA,12
-95,Vegetables,Kale,0,stuff,15,NA,18
-96,Vegetables,Winter Melon,0,stuff,15,NA,12
-97,Vegetables,Beets,0,stuff,15,NA,12
-98,Vegetables,Corn,0,stuff,15,NA,16
-99,Vegetables,Yam,0,stuff,15,NA,18
-100,Vegetables,Spinach,0,stuff,15,NA,18
-101,Vegetables,Baby Spinach,0,stuff,15,NA,17
-102,Vegetables,Broccoli,0,stuff,15,NA,19
-103,Vegetables,Squash,0,stuff,15,NA,18
-104,Vegetables,Green Bean,0,stuff,15,NA,14
-105,Vegetables,Cilantro,0,stuff,15,NA,18
-106,Vegetables,Ginger,0,stuff,15,NA,15
-107,Vegetables,Turnip,0,stuff,15,NA,14
-108,Vegetables,Pumpkin,0,stuff,15,NA,15
+83,Vegetables,Potatoes,1.41,320 grams. The most amazing potatoes ever. A very trendy potato with lots of carbs.,15,NA,18
+84,Vegetables,Tomatoes,0.92,"150 grams. Plump red trendy tomatoes on a vine. These juicy and sweet tomatoes are full of antioxidants, and may help fight several diseases. They are especially high in lycopene, a plant compound linked to improved heart health, cancer prevention, and protection against sunburns.",15,NA,12
+85,Vegetables,Cucumbers,5.99,907 grams. Mini fresh cucumbers. Mini cucumbers are small versions of the English variety with a bit more crunch. Eat them as Snack on the Go or Slice and Add to your Salads or Veggie Trays.,15,NA,13
+86,Vegetables,Lettuce,3.99,"1 iceberg, cello lettuce. Iceberg (or crisphead) lettuce is a round, tightly-packed head of pale green leaves. It has a crisp texture and a mild flavour and is mainly used fresh.",15,NA,13
+87,Vegetables,Cabbage,7.27,1.95 kilograms. High in Fibre and Low in Fat.,15,NA,14
+88,Vegetables,Green Onions,1.49,1 bunch. Also known as Spring Onions or Scallions. A Younger or Small Bulb Taste to a Mild Garlic. Older and Bigger Bulbs Taste more of a Typical White or Yellow Onions.,15,NA,19
+89,Vegetables,Romaine Hearts,5.99,510 grams. 3 Romaine hearts per pack. Wash before using.,15,NA,19
+90,Vegetables,Peas,4.99,"227 grams. Sweet, crisp and stringless! Stringless Sugar Snap Peas are the perfect snack.",15,NA,16
+91,Vegetables,Red peppers,2.64,200 grams. Red Peppers Contain Almost 300 percent Daily Vitamin C Intake. Also a Great Source of Vitamin B & Magnesium.,15,NA,17
+92,Vegetables,Yellow Peppers,2.64,200 grams. Yellow Peppers Contain Almost 300 percent Daily Vitamin C Intake. Also a Great Source of Vitamin B & Magnesium.,15,NA,15
+93,Vegetables,Orange Peppers,2.64,200 grams. Orange Peppers Contain Almost 300 percent Daily Vitamin C Intake. Also a Great Source of Vitamin B & Magnesium.,15,NA,16
+94,Vegetables,Zucchini,2.22,400 grams. Depending on the Size of each the Average Weight of Each Zucchini May Vary Between 350 grams to 800 grams.,15,NA,12
+95,Vegetables,Kale,3.99,"1 bunch. Kale is a nutrition superstar due to the amounts of vitamins A, K, B6 and C, calcium, potassium, copper and manganese it contains. One cup of raw kale has just 33 calories and only 7 grams of carbohydrate.",15,NA,18
+96,Vegetables,Winter Melon,5.69,"1 melon. This fruit is often praised for its laxative, diuretic, and aphrodisiac properties. It's also believed to provide health benefits ranging from increased energy levels and a sharper mind to smoother digestion and a lower risk of disease. ",15,NA,12
+97,Vegetables,Beets,4.99,"1 bunch. Organic and fresh. Boil, pickle or grate raw into a salad. Beets are a soucre of folic acid, vitamin C and potassium.",15,NA,12
+98,Vegetables,Corn,0.99,1 corn on the cob. Just another awesome Trendy vegetable from our market. ,15,NA,16
+99,Vegetables,Yam,3.51,"600 grams Average. Orange fleshed, reddish-brownish-orangish skinned sweet potatoes masquerading as yams.",15,NA,18
+100,Vegetables,Spinach,3.49,227 grams. Great For Salads or Cooking. Excellent Source of Vitamin A + Folate + Manganese.,15,NA,18
+101,Vegetables,Baby Spinach,6.99,684 grams. Organic baby spinach. Triple washed and ready to use.,15,NA,17
+102,Vegetables,Broccoli,2.49,"280 grams. Convenient, versatile, ready to use. Steam Broccoli and Sprinkle with some Shredded Cheese, or Drizzle with Lemon and Sesame Seeds.",15,NA,19
+103,Vegetables,Squash,3.75,"682 grams. Acorn squash is a winter squash with distinctive longitudinal ridges on its exterior and sweet, yellow-orange flesh inside.",15,NA,18
+104,Vegetables,Green Bean,3.99,1 pound. There are approximately 79 green beans per .25kg. Green beans are easy to prepare and make an excellent side dish.,15,NA,14
+105,Vegetables,Cilantro,1.99,"1 bunch. Used for its fragrant, citrusy leaves in Exotic dishes.",15,NA,18
+106,Vegetables,Ginger,1.99,"200 grams. The ginger plant has a thick, branched rhizome (underground stem) with a brown outer layer and yellow centre that has a spicy, citrusy aroma. Great for any cooking.",15,NA,15
+107,Vegetables,Turnip,4.58,835 grams. Purple Top White Globe turnip seeds are from an old heirloom turnip dating back prior to 1880. The roots are smooth and nearly round. Bright purple on top and creamy white in the portion below the soil line.Great for a variety of dishes.,15,NA,14
+108,Vegetables,Pumpkin,6.11,1 whole pumpkin around 1 pound. Pumpkins are often yellowish to orange in colour. Use them for carving or for cooking. Seeds are usable. ,15,NA,15
 109,Condiments,Mustard,0,stuff,15,NA,16
 110,Condiments,Ketchup,0,stuff,15,NA,12
 111,Condiments,Relish,0,stuff,15,NA,18
@@ -146,6 +146,6 @@ id,section,item,price,description,quantity,review,points
 145,Baking,Brown Sugar,0,stuff,15,NA,14
 146,Baking,Yeast,0,stuff,15,NA,15
 147,Baking,Red Velvet Cake Mix,0,stuff,15,NA,14
-148,Baking,Whole Wheat Flour,0,stuff,15,NA,15
-149,Baking,Cornmeal,0,stuff,15,NA,16
-150,Baking,Cornstarch,0,stuff,15,NA,12
+148,Baking,Whole Wheat Flour,4.99,"2.5 kilograms. Produced in Armstrong, BC with 100% Western Canadian Grain. High in fiber.",15,NA,15
+149,Baking,Cornmeal,3.49,500 grams. 100% Natural. No Additives.,15,NA,16
+150,Baking,Cornstarch,3.59,"454 grams. Thickens Desserts, Gravies and Sauces.",15,NA,12
