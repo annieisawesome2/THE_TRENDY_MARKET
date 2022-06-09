@@ -189,7 +189,7 @@ def selectBaking():
     Returns:
        str: 
     """
-    ITEM = getInput("Please type in the item you would like to view from the baking products listed", ["Sugar","Salt","Flour","Cocoa Powder","Baking Powder","Baking Soda","Vanilla Cake Mix","Chocolate Cake Mix","Icing","Almond Flour","Classic Sprinkles","Vanilla Extract","Blue Food Coloring","Yellow Food Coloring","Red Food Coloring","Pink Food Coloring","Green Food Coloring","Icing Sugar","Baking Soda","Chocolate Chips","Almond Extract","Cinnamon","Brown Sugar","Yeast","Red Velvet Cake Mix","Whole Wheat Flour","Cornmeal","Cornstarch"])
+    ITEM = getInput("Please type in the item you would like to view from the baking products listed", ["Sugar","Salt","Flour","Cocoa Powder","Baking Powder","Baking Soda","Vanilla Cake Mix","Chocolate Cake Mix","Icing","Almond Flour","Classic Sprinkles","Vanilla Extract","Blue Food Coloring","Yellow Food Coloring","Red Food Coloring","Pink Food Coloring","Green Food Coloring","Icing Sugar","Nutmeg","Chocolate Chips","Almond Extract","Cinnamon","Brown Sugar","Yeast","Red Velvet Cake Mix","Whole Wheat Flour","Cornmeal","Cornstarch"])
     return ITEM
 
 def directionChoice():
