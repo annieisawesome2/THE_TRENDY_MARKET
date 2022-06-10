@@ -123,10 +123,6 @@ What section would you like to shop in?
         print("Please choose a valid number from the selection provided!!")
         return shopSections()
     
-def sortCategory(CATEGORY):
-    for i in range(len(CATEGORY)):
-        print(f"- {CATEGORY[i][2]} (${CATEGORY[i][3]})")
-
 
 
 def selectMeat():
@@ -291,6 +287,11 @@ Please choose an option
        return menu()
 
 def getAccount():
+    """getting user's account to view their past transactions
+
+    Returns:
+        str: 
+    """
     global ACCOUNT_CUR
     ACCOUNT_USERNAME = input("Please enter the account username you would like to view: ")
 
@@ -322,9 +323,11 @@ def getAccount():
             
     
 def manageStock():
+    """updating stock from market
+    """
     global CURSOR, CONNECTION
     
-    ASK_ITEM = inputFoods("Please enter the item to update", ["Ground Beef", "Maple Roast Beef", "Beef Tenderloin Steak", "Striploin Grilling Steak", "Steak Shoulder Blade", "Ham", "Sirloin Steak", "Pork Tenderloin Whole", "Pork Side Ribs", "Ground Pork Lean", "Pork Sausage", "Bacon", "Pork Chops Loin", "Pork Bellies", "Turkey Hind Quarter", "Turkey Pepperoni", "Turkey Ground Thigh", "Turkey Breast", "Hot Italian Sausage Meat", "Pork Sausages", "Chicken Breast Boneless", "Chicken Thighs", "Chicken Drumsticks", "Chicken Whole", "Skim Milk", "1% Milk", "2% Milk", "3% Milk", "Whipping Cream", "Chocolate Milk", "Parmesan Cheese", "Cheddar Cheese", "Swiss Cheese", "Strawberry Yogurt", "Blueberry Yogurt", "Vanilla Yogurt", "Greek Yogurt", "White Eggs", "Brown Eggs", "Sour Cream", "Butter", "Feta Cheese", "Almond Milk", "Cashew Milk", "Vanilla Ice Cream", "Chocolate Ice Cream", "Strawberry Ice Cream", "Popsicles", "Frozen Blueberries", "Frozen Strawberries", "Frozen Rasberries", "Frozen Mangoes", "Frozen Pineapples", "Frozen Blackberries", "Frozen Scallops", "Frozen Peas", "Frozen Fillets", "Frozen Prawns", "Frozen Salmon", "Blueberries", "Pineapple","Strawberries","Bananas","Apples","Oranges","Mandarins","Peaches","Green Grapes","Red Grapes","Mangoes","Dragon Fruit","Passion Fruit","Watermelon","Pears","Cherries", "Mushrooms","Red Onions","Garlic","Avacados","Green Peppers","Celery","Carrot","Potatoes","Tomatoes","Cucumbers","Lettuce","Cabbage","Green Onions","Romaine Hearts","Peas","Red peppers","Yellow Peppers","Orange Peppers","Zucchini","Kale","Winter Melon","Beets","Corn","Yam","Spinach","Baby Spinach","Broccoli","Squash","Green Bean","Cilantro","Ginger","Turnip","Pumpkin"])                                                                 
+    ASK_ITEM = inputFoods("Please enter the item to update", ["Ground Beef", "Maple Roast Beef", "Beef Tenderloin Steak", "Striploin Grilling Steak", "Steak Shoulder Blade", "Ham", "Sirloin Steak", "Pork Tenderloin Whole", "Pork Side Ribs", "Ground Pork Lean", "Pork Sausage", "Bacon", "Pork Chops Loin", "Pork Bellies", "Turkey Hind Quarter", "Turkey Pepperoni", "Turkey Ground Thigh", "Turkey Breast", "Hot Italian Sausage Meat", "Pork Sausages", "Chicken Breast Boneless", "Chicken Thighs", "Chicken Drumsticks", "Chicken Whole", "Skim Milk", "1% Milk", "2% Milk", "3% Milk", "Whipping Cream", "Chocolate Milk", "Parmesan Cheese", "Cheddar Cheese", "Swiss Cheese", "Strawberry Yogurt", "Blueberry Yogurt", "Vanilla Yogurt", "Greek Yogurt", "White Eggs", "Brown Eggs", "Sour Cream", "Butter", "Feta Cheese", "Almond Milk", "Cashew Milk", "Vanilla Ice Cream", "Chocolate Ice Cream", "Strawberry Ice Cream", "Popsicles", "Frozen Blueberries", "Frozen Strawberries", "Frozen Rasberries", "Frozen Mangoes", "Frozen Pineapples", "Frozen Blackberries", "Frozen Scallops", "Frozen Peas", "Frozen Fillets", "Frozen Prawns", "Frozen Salmon", "Blueberries", "Pineapple","Strawberries","Bananas","Apples","Oranges","Mandarins","Peaches","Green Grapes","Red Grapes","Mangoes","Dragon Fruit","Passion Fruit","Watermelon","Pears","Cherries", "Mushrooms","Red Onions","Garlic","Avacados","Green Peppers","Celery","Carrot","Potatoes","Tomatoes","Cucumbers","Lettuce","Cabbage","Green Onions","Romaine Hearts","Peas","Red peppers","Yellow Peppers","Orange Peppers","Zucchini","Kale","Winter Melon","Beets","Corn","Yam","Spinach","Baby Spinach","Broccoli","Squash","Green Bean","Cilantro","Ginger","Turnip","Pumpkin", "Mustard","Ketchup","Relish","Peanut Butter","Ranch","Honey","Sriracha","Soy Sauce","Olive Oil","Canola Oil","Mayonnaise","Maple Syrup","Hot Sauce","Vinager", "Sugar","Salt","Flour","Cocoa Powder","Baking Powder","Baking Soda","Vanilla Cake Mix","Chocolate Cake Mix","Icing","Almond Flour","Classic Sprinkles","Vanilla Extract","Blue Food Coloring","Yellow Food Coloring","Red Food Coloring","Pink Food Coloring","Green Food Coloring","Icing Sugar","Nutmeg","Chocolate Chips","Almond Extract","Cinnamon","Brown Sugar","Yeast","Red Velvet Cake Mix","Whole Wheat Flour","Cornmeal","Cornstarch"])                                                                 
     ITEM = ASK_ITEM.title()
     
     CHOICE = input("New Quantity: ")
@@ -985,6 +988,16 @@ Welcome to the Trendy Market!! We source the best quality foods from this planet
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     ''')
 
+def sortCategory(CATEGORY):
+    """displaying all items of a certain category
+
+    Args:
+        CATEGORY (): 
+    """
+    for i in range(len(CATEGORY)):
+        print(f"- {CATEGORY[i][2]} (${CATEGORY[i][3]})")
+
+
 def displayProducts(PRODUCT):
     """displaying the product information from array
 
@@ -1084,6 +1097,12 @@ def addedToCart():
         ''')
 
 def displayCustomerHistory(ACCOUNT, ACCOUNT_USERNAME):
+    """displaying customers past transactions
+
+    Args:
+        ACCOUNT (_type_): _description_
+        ACCOUNT_USERNAME (_type_): _description_
+    """
     print(f'''
 {ACCOUNT_USERNAME}
 ~~~~~~~~~~~~~~~~~~
@@ -1119,7 +1138,7 @@ if __name__ == "__main__":
         while OPERATION == 1:
             CATEGORY = shopSections()
 
-            if CATEGORY == 1:
+            if CATEGORY == 1:##meats
                 MEATS = shopMeats()
                 sortCategory(MEATS)
                 MEAT_ITEM = selectMeat()
@@ -1140,7 +1159,7 @@ if __name__ == "__main__":
                     break
                 
                 
-            elif CATEGORY == 2:
+            elif CATEGORY == 2:##dairy
                 DAIRY = shopDairy()
                 sortCategory(DAIRY)
                 DAIRY_ITEM = selectDairy()
@@ -1161,7 +1180,7 @@ if __name__ == "__main__":
                 if DIRECTION == 3:
                     break
 
-            elif CATEGORY == 3:
+            elif CATEGORY == 3:##frozen
                 FROZEN = shopFrozen()
                 sortCategory(FROZEN)
                 FROZEN_ITEM = selectFrozen()
@@ -1181,7 +1200,7 @@ if __name__ == "__main__":
                 if DIRECTION == 3:
                     break
 
-            elif CATEGORY == 4:
+            elif CATEGORY == 4:##fruits
                 FRUITS = shopFruits()
                 sortCategory(FRUITS)
                 FRUIT_ITEM = selectFruits()
@@ -1201,7 +1220,7 @@ if __name__ == "__main__":
                 if DIRECTION == 3:
                     break
 
-            elif CATEGORY == 5:
+            elif CATEGORY == 5:##vegetables
                 VEGETABLES = shopVegetables()
                 sortCategory(VEGETABLES)
                 VEG_ITEM = selectVegetables()
@@ -1221,7 +1240,7 @@ if __name__ == "__main__":
                 if DIRECTION == 3:
                     break
                 
-            elif CATEGORY == 6:
+            elif CATEGORY == 6:##condiments
                 CONDIMENTS = shopCondiments()
                 sortCategory(CONDIMENTS)
                 CONDIMENT_ITEM = selectCondiments()
@@ -1241,7 +1260,7 @@ if __name__ == "__main__":
                 if DIRECTION == 3:
                     break
                 
-            elif CATEGORY == 7:
+            elif CATEGORY == 7:##baking
                 BAKING = shopBaking()
                 sortCategory(BAKING)
                 BAKING_ITEM = selectBaking()
@@ -1261,7 +1280,7 @@ if __name__ == "__main__":
                 if DIRECTION == 3:
                     break
 
-        if OPERATION == 2:
+        if OPERATION == 2:##cart and check out
             if CART == []:
                 print("Your Cart is empty")
                 continue
@@ -1281,9 +1300,6 @@ if __name__ == "__main__":
 
                 else:
                     continue
-
-                #delete stuff from cart...reference contacts things again  
-                
 
         if OPERATION == 3:
                 MANAGE = manageMenu()

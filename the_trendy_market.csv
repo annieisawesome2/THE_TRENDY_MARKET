@@ -51,7 +51,7 @@ id,section,item,price,description,quantity,review,points
 50,Frozen,Frozen Strawberries,5.99,600 grams. Unsweetened Strawberries Sliced for your Convenience.,15,NA,5
 51,Frozen,Frozen Rasberries,5.99,600 grams. Unsweetened Frozen Cultivated Rasberries. ,15,NA,5
 52,Frozen,Frozen Mangoes,5.99,"600 grams. Unsweetened frozen mango pieces. Great in smoothies, fruit salad & more. Very high in Vitamin C.",15,NA,5
-53,Frozen,Frozen Pinapples,5.99,600 grams. Grade A. Source of vitamin A & Iron. Unsweetened.,15,NA,5
+53,Frozen,Frozen Pineapples,5.99,600 grams. Grade A. Source of vitamin A & Iron. Unsweetened.,15,NA,5
 54,Frozen,Frozen Blackberries,5.99,600 grams. Very high in vitamin C & unsweetened.,15,NA,5
 55,Frozen,Frozen Scallops,19.99,"340 grams. Large scallops. Ocean Wise. Frozen 20-30 Scallops per Pound. These scallops are briny, slightly sweet and buttery with a tender texture when cooked properly.",15,NA,19
 56,Frozen,Frozen Peas,2.79,"750 grams. Green fancy peas. Source of vitamin C, protein & iron. Frozen.",15,NA,2
@@ -75,12 +75,12 @@ id,section,item,price,description,quantity,review,points
 74,Fruits,Pears,1.04,"190 grams. Fancy Grade A. Bell-Shaped Pear with a Classic Sweet Pear Flavor and Smooth, Buttery Texture.",15,NA,1
 75,Fruits,Cherries,6.99,price per pound. Delicious trendy red organic cherries. ,15,NA,6
 76,Vegetables,Mushrooms,4.99,price per pound. Tasty large white mushrooms. ,15,NA,4
-77,Vegetables,Red Onions,2.21,price per each,15,NA,2
-78,Vegetables,Garlic,0.75,price per each,15,NA,1
-79,Vegetables,Avacados,2.99,price per each,15,NA,2
-80,Vegetables,Green Peppers,2.11,price per each,15,NA,2
-81,Vegetables,Celery,2.66,price per bunch,15,NA,2
-82,Vegetables,Carrot,3.99,price per 2 pounds,15,NA,3
+77,Vegetables,Red Onions,2.21,"335 grams.  These trendy unpeeled red onions are good to use for any of your trendy needs! Fairly Similar to Yellow Onions in Flavor, though their Layers are Slightly less Tender and Meaty. Most Often used in Salads, Salsas, other Raw Preparations for their color and relatively mild Flavour",15,NA,2
+78,Vegetables,Garlic,0.75,1 garlic. Just a trendy garlic that you need. ,15,NA,1
+79,Vegetables,Avacados,2.49,"1 avacado. Avocados are very nutritious and contain a wide variety of nutrients, including 20 different vitamins and minerals.",15,NA,2
+80,Vegetables,Green Peppers,1.85,"240 grams. An Excellent Source of Vitamins C, A, K and B6.",15,NA,1
+81,Vegetables,Celery,5.54,"720 grams. A juicy, crunchy kitchen staple.",15,NA,2
+82,Vegetables,Carrot,3.99,price per 2 pounds. These trendy carrots are orange. They are really healthy!,15,NA,3
 83,Vegetables,Potatoes,1.41,320 grams. The most amazing potatoes ever. A very trendy potato with lots of carbs.,15,NA,1
 84,Vegetables,Tomatoes,0.92,"150 grams. Plump red trendy tomatoes on a vine. These juicy and sweet tomatoes are full of antioxidants, and may help fight several diseases. They are especially high in lycopene, a plant compound linked to improved heart health, cancer prevention, and protection against sunburns.",15,NA,1
 85,Vegetables,Cucumbers,5.99,907 grams. Mini fresh cucumbers. Mini cucumbers are small versions of the English variety with a bit more crunch. Eat them as Snack on the Go or Slice and Add to your Salads or Veggie Trays.,15,NA,5
